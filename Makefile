@@ -58,7 +58,7 @@ DEP=		$(addprefix $(DEP_DIR), $(DEP_FILE))
 # **************************************************************************** #
 
 #                 # <-- start here         | <-- middle             # <-- stop here
-HEADER_NAME 	= +                      Philo                      #
+HEADER_NAME 	= +                    Minishell                    #
 
 COLOR_RED		= \033[0;31m
 COLOR_GREEN		= \033[0;32m
@@ -76,7 +76,7 @@ HEADER =		@echo "${COLOR_CYAN}\
 				\n/*          :+:      :+:    :+:                                               */\
 				\n/*        +:+ +:+         +:${HEADER_NAME}*/\
 				\n/*      +\#+  +:+       +\#+                                                    */\
-				\n/*    +\#+\#+\#+\#+\#+   +\#+                       Thomas Robertson                */\
+				\n/*    +\#+\#+\#+\#+\#+   +\#+                    <vmuller@student.42.fr>            */\
 				\n/*         \#+\#    \#+\#                     <troberts@student.42.fr>            */\
 				\n/*        \#\#\#   \#\#\#\#\#\#\#\#.fr                                                   */\
 				\n/*                                                                            */\

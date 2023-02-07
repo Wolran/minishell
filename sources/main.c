@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:49:10 by vmuller           #+#    #+#             */
-/*   Updated: 2023/01/31 10:39:32 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:33:50 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //test main
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 int	ft_init_token(t_token *token)
 {

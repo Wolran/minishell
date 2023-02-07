@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pars_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 10:17:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/01/31 10:39:32 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:33:36 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_pars_echo(t_mini *mini)
 {

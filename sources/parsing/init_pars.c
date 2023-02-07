@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_pars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:50:52 by vmuller           #+#    #+#             */
-/*   Updated: 2023/01/31 09:56:43 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:33:32 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_find_first_word(t_token *token)
 {

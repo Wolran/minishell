@@ -1,40 +1,200 @@
-# **************************************************************************** #
+#*************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/13 04:19:36 by vmuller           #+#    #+#              #
-#    Updated: 2023/01/28 19:27:45 by vmuller          ###   ########.fr        #
+#            :::      ::::::::                                                 #
+#          :+:      :+:    :+:                                                 #
+#        +:+ +:+         +:+         Makefile v2.1                             #
+#      +#+  +:+       +#+                                                      #
+#    +#+#+#+#+#+   +#+               By: troberts <troberts@student.42.fr>     #
+#         #+#    #+#                                                           #
+#        ###   ########.fr                                                     #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= minishell
+# **************************************************************************** #
+#                              VARIABLE REFERENCE                              #
+# **************************************************************************** #
 
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g3
+NAME= minishell
 
-SRC			= 	parsing/quote.c parsing/quote*2.c \
+# CC= clang
+CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
+LDFLAGS=
+DEPFLAGS= -MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
 
-OBJECT		= ${SRC:.c=.o}
-INC			= includes
+INCLUDE = -I$(INCLUDE_DIR) -I$(LIBFT_DIR)
 
-.c.o :
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I${INC}
+LIBFT_DIR= libs/libft
+LIBFT_LIB= $(LIBFT_DIR)/libft.a
 
-${NAME} : ${OBJECT}
-	${CC} ${OBJECT} -o ${NAME} 
+INCLUDE_DIR= includes
+OBJ_DIR= obj/
+SRC_DIR= sources/
+DEP_DIR= dep/
 
-all : ${NAME}
+# **************************************************************************** #
+#                                .C & .H FILES                                 #
+# **************************************************************************** #
 
-clean :
-	rm -f ${OBJECT}
+SRC_FILE=	\
+			parsing/error_pars.c \
+			parsing/init_pars.c \
+			parsing/pars_echo.c \
+			parsing/parsing.c \
+			parsing/quote.c \
+			parsing/quote*2.c \
+			parsing/utils.c \
+			main.c
 
-fclean : clean
-	rm -f ${NAME}
+SRC=		$(addprefix $(SRC_DIR), $(SRC_FILE))
+OBJ_FILE= 	$(SRC_FILE:.c=.o)
+OBJ=		$(addprefix $(OBJ_DIR), $(OBJ_FILE))
+DEP_FILE=	$(SRC_FILE:.c=.o)
+DEP=		$(addprefix $(DEP_DIR), $(DEP_FILE))
+#OBJ=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-re : fclean all
+# **************************************************************************** #
+#                                HEADER CONFIG                                 #
+# **************************************************************************** #
 
-.PHONY : all clean fclean re
+#                 # <-- start here         | <-- middle             # <-- stop here
+HEADER_NAME 	= +                      Philo                      #
 
+COLOR_RED		= \033[0;31m
+COLOR_GREEN		= \033[0;32m
+COLOR_YELLOW	= \033[0;33m
+COLOR_BLUE		= \033[0;34m
+COLOR_PURPLE	= \033[0;35m
+COLOR_CYAN		= \033[0;36m
+COLOR_WHITE		= \033[0;37m
+COLOR_END		= \033[m
+
+HEADER =		@echo "${COLOR_CYAN}\
+				\n/* ************************************************************************** */\
+				\n/*                                                                            */\
+				\n/*            :::      ::::::::                                               */\
+				\n/*          :+:      :+:    :+:                                               */\
+				\n/*        +:+ +:+         +:${HEADER_NAME}*/\
+				\n/*      +\#+  +:+       +\#+                                                    */\
+				\n/*    +\#+\#+\#+\#+\#+   +\#+                       Thomas Robertson                */\
+				\n/*         \#+\#    \#+\#                     <troberts@student.42.fr>            */\
+				\n/*        \#\#\#   \#\#\#\#\#\#\#\#.fr                                                   */\
+				\n/*                                                                            */\
+				\n/* ************************************************************************** */\
+				\n \
+				\n${COLOR_END}"
+
+HEADER_VAR =	@echo "${COLOR_CYAN}\
+				BINARY NAME: $(NAME) \
+				\n CC: $(CC) \
+				\n CFLAGS: $(CFLAGS) \
+				\n LDFLAGS: $(LDFLAGS) \
+				\n${COLOR_END}"
+
+# **************************************************************************** #
+#                                    RULES                                     #
+# **************************************************************************** #
+
+all: $(NAME)
+
+$(NAME): FORCE header
+	$(HEADER_VAR)
+	@echo -n "${COLOR_PURPLE}Creatings libs : \n[${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent $(LIBFT_LIB)
+	@echo -n "${COLOR_PURPLE}]\n\n${COLOR_END}"
+	@echo -n "${COLOR_YELLOW}Compiling : \n[${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent $(OBJ)
+	@echo -n "${COLOR_YELLOW}]\n\n${COLOR_END}"
+	@echo -n "${COLOR_GREEN}Linking : "
+	@$(CC) -o $@ $(OBJ) $(LDFLAGS) $(LIBFT_LIB)
+	@echo "${COLOR_GREEN}Done. ${COLOR_END}"
+
+FORCE: ;
+
+malloc_test: $(OBJ)
+	$(CC) $(CFLAGS) $(LDFLAGS) -fsanitize=undefined -rdynamic -o $@ $(OBJ) -L. -lmallocator
+
+bonus: $(NAME)
+
+$(LIBFT_LIB): makelibf ;
+
+makelibf :
+	make -C $(LIBFT_DIR)
+
+$(OBJ): | $(OBJ_DIR)
+
+$(OBJ_DIR):
+	@mkdir -p $@
+
+$(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@echo -n "${COLOR_YELLOW}#${COLOR_END}"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# $(DEP): | $(DEP_DIR)
+
+# $(DEP_DIR):
+# 	mkdir -p $@
+
+# $(DEP): $(SRC_DIR)%.c
+# 	$(CC) $(DEPFLAGS) $(CFLAGS) -o $@
+
+header:
+	$(HEADER)
+
+cleanobj:
+	@rm -f $(OBJ)
+
+cleanobjdir: cleanobj
+	@rm -rf $(OBJ_DIR)
+
+cleanlibft:
+	@make -C $(LIBFT_DIR) clean
+
+fcleanlibft:
+	@make -C $(LIBFT_DIR) fclean
+
+clean: header
+	@echo "${COLOR_RED}Removing libs objects.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent cleanlibft
+	@echo "${COLOR_RED}Removing objects.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent cleanobj
+	@echo "${COLOR_RED}Removing object directory.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent cleanobjdir
+
+fclean: clean
+	@echo "${COLOR_RED}Removing libs binary files.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent fcleanlibft
+	@echo "${COLOR_RED}Removing binary file.${COLOR_END}"
+	@rm -f $(NAME) $(NAME_BONUS)
+
+re: header fclean all
+
+reobj: cleanobj
+	make -C .
+
+norm: header
+	@echo -n "$(COLOR_GREEN)"
+	-python3 -m norminette $(SRC_DIR)
+	@echo "$(COLOR_PURPLE)"
+	-python3 -m norminette $(INCLUDE_DIR)
+	@echo -n "$(COLOR_END)"
+
+.PHONY: all clean fclean re reobj norm header cleanobj bonus obj_rule
+
+# include $(DEP)
+
+# DEP_CFLAGS=-MM -MD
+# ALL_CFLAGS=-I ./inc -Wall -Wextra -Werror
+# src=$(wildcard *.c)
+# dep=$(src:.c=.d)
+# 
+# ... (other flags, other rules like all etc.)
+# 
+# %.o:%.c
+#     $(CC) -c $< $(ALL_CFLAGS) -o $@
+# %.d:%.c
+#     $(CC) $< $(DEP_FLAGS) $(ALL_CFLAGS) -o $@
+# 
+# ... (other rules etc.)
+# 
+# #This below has to be at the end of the Makefile, else it does not work
+-include $(DEP_FILE)

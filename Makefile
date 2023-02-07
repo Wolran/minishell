@@ -21,10 +21,11 @@ CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
 LDFLAGS=
 DEPFLAGS= -MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
 
-INCLUDE = -I$(INCLUDE_DIR) -I$(LIBFT_DIR)
+INCLUDE = -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(LIBFT_INC)
 
 LIBFT_DIR= libs/libft
 LIBFT_LIB= $(LIBFT_DIR)/libft.a
+LIBFT_INC= $(LIBFT_DIR)/include
 
 INCLUDE_DIR= includes
 OBJ_DIR= obj/

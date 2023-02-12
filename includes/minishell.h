@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/12 15:50:30 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:53:40 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 typedef enum e_token_type
 {
 	cmd,
-	pipe, // |
+	pipe_token, // |
 	redirect_input, // <
 	redirect_output, // >
 	append_redirect_output, // >>

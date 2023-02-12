@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/11 21:02:38 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:50:30 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "color.h"
 
+# include "tokens_struct.h"
 # include "parsing.h"
 
 /**
@@ -24,36 +26,13 @@
 typedef enum e_token_type
 {
 	cmd,
-	pipe
+	pipe, // |
+	redirect_input, // <
+	redirect_output, // >
+	append_redirect_output, // >>
+	here_doc, // <<
+	list_cmd, // ;
 }	t_token_type;
-
-/**
- * @brief Structure used for commands token.
- * 
- * @param cmd_name CMD NAME, ex: ls. From parsing.
- * @param cmd_path Cmd path, ex : /bin/ls
- * @param cmd_args Cmd args, ex: "-l". From parsing, modified after pre-process.
- * @param envp Environment pointer. From parsing.
- * @param fd_in fd used for input. From pre-process.
- * @param fd_out fd used for output. From pre-process.
- */
-typedef struct s_cmd {
-	char	*cmd_name;
-	char	*cmd_path;
-	char	**cmd_args;
-	char	**envp;
-	int		fd_in;
-	int		fd_out;
-}			t_cmd;
-
-/**
- * @brief Structure used for pipes token.
- * 
- * @param fd Initialised from pipe(). From pre-process.
- */
-typedef struct s_pipe {
-	int	fd[2];
-}		t_pipe;
 
 typedef struct s_token {
 	t_token_type	token_type;

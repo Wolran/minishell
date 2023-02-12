@@ -85,6 +85,7 @@ HEADER =		@echo "${COLOR_CYAN}\
 				\n${COLOR_END}"
 
 HEADER_VAR =	@echo "${COLOR_CYAN}\
+				\n \
 				BINARY NAME: $(NAME) \
 				\n CC: $(CC) \
 				\n CFLAGS: $(CFLAGS) \
@@ -130,6 +131,15 @@ $(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@echo -n "${COLOR_YELLOW}#${COLOR_END}"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+reobj: FORCE header cleanobj
+	$(HEADER_VAR)
+	@echo -n "${COLOR_YELLOW}Compiling : \n[${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent $(OBJ)
+	@echo -n "${COLOR_YELLOW}]\n\n${COLOR_END}"
+	@echo -n "${COLOR_GREEN}Linking : "
+	@$(CC) -o $@ $(OBJ) $(LDFLAGS) $(LIBFT_LIB)
+	@echo "${COLOR_GREEN}Done. ${COLOR_END}"
+
 # $(DEP): | $(DEP_DIR)
 
 # $(DEP_DIR):
@@ -169,8 +179,8 @@ fclean: clean
 
 re: header fclean all
 
-reobj: cleanobj
-	make -C .
+# reobj: cleanobj
+# 	make -C .
 
 norm: header
 	@echo -n "$(COLOR_GREEN)"

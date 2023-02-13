@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:46:31 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/12 15:47:13 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 01:42:17 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,26 @@
  * @param fd_in fd used for input. From pre-process.
  * @param fd_out fd used for output. From pre-process.
  */
-typedef struct s_cmd {
-	char	*cmd_name;
-	char	*cmd_path;
-	char	**cmd_args;
-	char	**envp;
-	int		fd_in;
-	int		fd_out;
-}			t_cmd;
+typedef struct s_cmd
+{
+	char					*cmd_name;
+	char					*cmd_path;
+	char					**cmd_args;
+	int						nbr_args;
+	char					**envp;
+	int						fd_in;
+	int						fd_out;
+}							t_cmd;
 
 /**
  * @brief Structure used for pipes token.
  * 
  * @param fd Initialised from pipe(). From pre-process.
  */
-typedef struct s_pipe {
-	int	fd[2];
-}		t_pipe;
+typedef struct s_pipe
+{
+	int						fd[2];
+}							t_pipe;
 
 /**
  * @brief Structure used for redirect tokens (redirect_input, redirect_output
@@ -48,10 +51,11 @@ typedef struct s_pipe {
  * @param file_name File name. From parsing.
  * @param open_mode Args for open(). From pre-process.
  */
-typedef struct s_redirect {
-	char	*file_name;
-	int		open_mode;
-}			t_redirect;
+typedef struct s_redirect
+{
+	char					*file_name;
+	int						open_mode;
+}							t_redirect;
 
 /**
  * @brief Structure used for here_doc tokens.
@@ -59,14 +63,40 @@ typedef struct s_redirect {
  * @param limiter File name. From parsing.
  * @param open_mode Args for open(). From pre-process.
  */
-typedef struct s_here_doc {
-	char	*limiter;
-	char	*str;
-}			t_here_doc;
+typedef struct s_here_doc
+{
+	char					*limiter;
+	char					*str;
+}							t_here_doc;
 
 /**
  * @brief Structure used for list_cmd tokens. Empty for the moment.
  */
-typedef void	t_list_cmd;
+typedef void				t_list_cmd;
+
+/**
+ * @brief Enum containing all of the different sorts of token possible.
+ * 
+ */
+typedef enum e_token_type
+{
+	cmd,
+	pipe_token, // |
+	redirect_input, // <
+	redirect_output, // >
+	append_redirect_output, // >>
+	here_doc, // <<
+	list_cmd, // ;
+}							t_token_type;
+
+typedef struct s_token_exe	t_token_exe;
+
+struct						s_token_exe
+{
+	t_token_type			token_type;
+	void					*content;
+	t_token_exe				*next;
+	t_token_exe				*previous;
+};
 
 #endif

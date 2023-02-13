@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:23:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 20:06:15 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:26:33 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	clean_node(t_token_exe *tokens)
 	else if (tokens->token_type == pipe_token)
 	{
 		pipe_t = tokens->content;
-		close(pipe_t->fd[PIPE_READ]);
-		close(pipe_t->fd[PIPE_WRITE]);
+		if (pipe_t->fd[PIPE_READ] != -1)
+			close(pipe_t->fd[PIPE_READ]);
+		if (pipe_t->fd[PIPE_WRITE] != -1)
+			close(pipe_t->fd[PIPE_WRITE]);
 	}
 }
 

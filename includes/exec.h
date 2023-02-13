@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:12:05 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 20:38:57 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:56:40 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void		print_chain(t_token_exe	*tokens);
 int			get_path_of_cmd(char *cmd_name, char **envp, char **cmd_path);
 
 // PRE_PROCESS
-void		pre_process(t_token_exe *tokens);
+int			pre_process(t_token_exe *tokens);
 
 #endif

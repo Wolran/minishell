@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:16:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 20:50:33 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:26:46 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,21 @@ int	process_cmd_struct(t_token_exe *token)
 		return (RETURN_FAILURE);
 	cmd_args = malloc(sizeof(*cmd_args) * (cmd->nbr_args + 1 + 1));
 	if (cmd_args == NULL)
+	{
+		free(cmd->cmd_path);
 		return (RETURN_FAILURE);
+	}
 	cmd_args[0] = cmd->cmd_path;
 	cmd_args[cmd->nbr_args + 1] = NULL;
 	i = 0;
 	while (i < cmd->nbr_args)
 	{
 		cmd_args[i + 1] = ft_strdup(cmd->cmd_args[i]);
+		if (cmd_args[i + 1] == NULL)
+		{
+			ft_free_double_ptr(cmd_args);
+			return (RETURN_FAILURE);
+		}
 		i++;
 	}
 	ft_free_double_ptr(cmd->cmd_args);
@@ -49,23 +57,26 @@ int	process_cmd_struct(t_token_exe *token)
 	return (RETURN_SUCCESS);
 }
 
-t_token_exe	*process_each_node(t_token_exe *token)
+int	process_each_node(t_token_exe *token)
 {
 	if (token->token_type == cmd)
-		process_cmd_struct(token);
+		return (process_cmd_struct(token));
 	else if (token->token_type == pipe_token)
-		process_pipe_struct(token);
-	return (token);
+		return (process_pipe_struct(token));
+	else
+	{
+		ft_putendl_fd("Invalid token", STDERR_FILENO);
+		return (RETURN_FAILURE);
+	}
 }
 
-void	pre_process(t_token_exe *tokens)
+int	pre_process(t_token_exe *tokens)
 {
-	// t_token_exe	*first_node;
-	// first_node = tokens;
 	while (tokens)
 	{
-		process_each_node(tokens);
+		if (process_each_node(tokens) == RETURN_FAILURE)
+			return (RETURN_FAILURE);
 		tokens = tokens->next;
 	}
-	// return (first_node);
+	return (RETURN_SUCCESS);
 }

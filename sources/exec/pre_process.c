@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:16:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 22:26:46 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:32:30 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int	process_cmd_struct(t_token_exe *token)
 	int		i;
 
 	cmd = token->content;
-	cmd->return_code = get_path_of_cmd(cmd->cmd_name, cmd->envp,
-			&(cmd->cmd_path));
-	if (cmd->return_code == RETURN_FAILURE)
+	if (get_path_of_cmd(cmd->cmd_name, cmd->envp, &(cmd->cmd_path)) ==
+			RETURN_FAILURE)
 		return (RETURN_FAILURE);
 	cmd_args = malloc(sizeof(*cmd_args) * (cmd->nbr_args + 1 + 1));
 	if (cmd_args == NULL)
@@ -59,7 +58,7 @@ int	process_cmd_struct(t_token_exe *token)
 
 int	process_each_node(t_token_exe *token)
 {
-	if (token->token_type == cmd)
+	if (token->token_type == cmd_token)
 		return (process_cmd_struct(token));
 	else if (token->token_type == pipe_token)
 		return (process_pipe_struct(token));

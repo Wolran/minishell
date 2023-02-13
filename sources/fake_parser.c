@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:36:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 22:09:53 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:36:43 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_token_exe	*parser(char **envp)
 		exit(EXIT_FAILURE);
 	tokens = node;
 	node->previous = NULL;
-	node->token_type = cmd;
+	node->token_type = cmd_token;
 	node->content = cmd1;
 	node_tmp = malloc (sizeof(*node_tmp));
 	if (node_tmp == NULL)
@@ -65,7 +65,7 @@ t_token_exe	*parser(char **envp)
 	node->next = node_tmp;
 	node_tmp->previous = node;
 	node = node_tmp;
-	node->token_type = cmd;
+	node->token_type = cmd_token;
 	node->content = cmd2;
 	node->next = NULL;
 	return (tokens);
@@ -87,11 +87,11 @@ void	print_chain(t_token_exe	*tokens)
 {
 	while (tokens)
 	{
-		if (tokens->token_type == cmd)
+		if (tokens->token_type == cmd_token)
 		{
 			t_cmd	*cmd;
 			cmd = tokens->content;
-			printf("cmd_name : %s\ncmd_path : %s\nnbr_args : %i\nfd_in : %i\nfd_out : %i\nreturn_code : %i\n", cmd->cmd_name, cmd->cmd_path, cmd->nbr_args, cmd->fd_in, cmd->fd_out, cmd->return_code);
+			printf("cmd_name : %s\ncmd_path : %s\nnbr_args : %i\nfd_in : %i\nfd_out : %i\n", cmd->cmd_name, cmd->cmd_path, cmd->nbr_args, cmd->fd_in, cmd->fd_out);
 			printf("cmd_args : ");
 			print_double_char(cmd->cmd_args);
 			// printf("envp : ");

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:46:31 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 20:42:09 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:31:35 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_cmd
 	char					**envp;
 	int						fd_in;
 	int						fd_out;
-	int						return_code;
+	pid_t					pid;
 }							t_cmd;
 
 /**
@@ -81,7 +81,7 @@ typedef void				t_list_cmd;
  */
 typedef enum e_token_type
 {
-	cmd,
+	cmd_token,
 	pipe_token, // |
 	redirect_input, // <
 	redirect_output, // >

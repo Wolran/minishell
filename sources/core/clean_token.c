@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:23:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 22:26:33 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:31:59 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	clean_node(t_token_exe *tokens)
 	t_cmd	*cmd_t;
 	t_pipe	*pipe_t;
 
-	if (tokens->token_type == cmd)
+	if (tokens->token_type == cmd_token)
 	{
 		cmd_t = tokens->content;
 		free(cmd_t->cmd_name);

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:27:26 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 20:53:23 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:34:46 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,8 @@ char	*generate_cmd_path(char *path_env, char *cmd_name)
 	return (path_cmd);
 }
 
-// t_cmd	*clean_error(t_cmd *cmd, t_bool display_message,
-// 								t_bool return_null)
-// {
-// 	if (display_message)
-// 		ft_printf("bash: %s: command not found\n", cmd->cmd_name);
-// 	if (return_null == true)
-// 	{
-// 		free_cmd(cmd);
-// 		return (NULL);
-// 	}
-// 	else
-// 	{
-// 		cmd->path = NULL;
-// 		return (cmd);
-// 	}
-// }
-
 int	test_correct_access_cmd(char *cmd_name, char **path_env,
-			char **cmd_path)
+		char **cmd_path)
 {
 	int		i;
 
@@ -71,8 +54,9 @@ int	test_correct_access_cmd(char *cmd_name, char **path_env,
 	}
 	if (path_env[i] == NULL)
 	{
+		printf("bash: %s: command not found\n", cmd_name);
 		(*cmd_path) = NULL;
-		return (CMD_NOT_FOUND);
+		return (RETURN_SUCCESS);
 	}
 	return (RETURN_SUCCESS);
 }

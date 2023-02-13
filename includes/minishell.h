@@ -6,12 +6,16 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/13 18:52:14 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:30:53 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 # include "libft.h"
 # include "color.h"

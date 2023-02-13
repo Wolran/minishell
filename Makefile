@@ -16,7 +16,7 @@
 
 NAME= minishell
 
-CC= gcc
+CC= clang
 CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
 LDFLAGS=
 DEPFLAGS= -MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
@@ -108,8 +108,8 @@ $(NAME): FORCE header
 
 FORCE: ;
 
-malloc_test: $(OBJ)
-	$(CC) $(CFLAGS) $(LDFLAGS) -fsanitize=undefined -rdynamic -o $@ $(OBJ) -L. -lmallocator
+malloc_test: $(OBJ) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(LDFLAGS) -fsanitize=undefined -rdynamic -o $@ $(OBJ) $(LIBFT_LIB) -L. -lmallocator
 
 bonus: $(NAME)
 

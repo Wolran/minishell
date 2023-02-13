@@ -122,13 +122,14 @@ $(LIBFT_LIB): makelibf ;
 makelibf :
 	make -C $(LIBFT_DIR)
 
-$(OBJ): | $(OBJ_DIR)
+# $(OBJ): | $(OBJ_DIR)
 
-$(OBJ_DIR):
-	@mkdir -p $@
+# $(OBJ_DIR):
+# 	@mkdir -p $(@D)
 
 $(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@echo -n "${COLOR_YELLOW}#${COLOR_END}"
+	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 reobj: FORCE header cleanobj

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 16:42:56 by troberts          #+#    #+#             */
-/*   Updated: 2022/08/07 16:43:49 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:51:27 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_free_double_ptr(char **array_char)
 {
 	size_t	i;
 
+	if (array_char == NULL)
+		return ;
 	i = 0;
 	while (array_char[i])
 	{

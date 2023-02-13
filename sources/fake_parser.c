@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:36:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 19:04:11 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:51:30 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_token_exe	*parser(char **envp)
 	cmd1->nbr_args = 1;
 	cmd1->fd_in = -1;
 	cmd1->fd_out = -1;
-	cmd2->cmd_name = ft_strdup("cat");
+	cmd2->cmd_name = ft_strdup("cat251");
 	cmd2->cmd_args = NULL;
 	cmd2->envp = envp;
 	cmd2->nbr_args = 0;
@@ -77,7 +77,7 @@ void	print_chain(t_token_exe	*tokens)
 		{
 			t_cmd	*cmd;
 			cmd = tokens->content;
-			printf("cmd_name : %s\ncmd_path : %s\nnbr_args : %i\nfd_in : %i\nfd_out : %i\n", cmd->cmd_name, cmd->cmd_path, cmd->nbr_args, cmd->fd_in, cmd->fd_out);
+			printf("cmd_name : %s\ncmd_path : %s\nnbr_args : %i\nfd_in : %i\nfd_out : %i\nreturn_code : %i\n", cmd->cmd_name, cmd->cmd_path, cmd->nbr_args, cmd->fd_in, cmd->fd_out, cmd->return_code);
 			printf("cmd_args : ");
 			print_double_char(cmd->cmd_args);
 			// printf("envp : ");

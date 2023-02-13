@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:46:31 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 01:42:17 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:42:09 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_cmd
 	char					**envp;
 	int						fd_in;
 	int						fd_out;
+	int						return_code;
 }							t_cmd;
 
 /**

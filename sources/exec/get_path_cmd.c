@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:27:26 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 03:31:59 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:53:23 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,46 +47,49 @@ char	*generate_cmd_path(char *path_env, char *cmd_name)
 // 	}
 // }
 
-char	*test_correct_access_cmd(char *cmd_name, char **path_env)
+int	test_correct_access_cmd(char *cmd_name, char **path_env,
+			char **cmd_path)
 {
 	int		i;
-	char	*cmd_path;
 
-	cmd_path = ft_strdup(cmd_name);
-	if (cmd_path == NULL)
-		return (NULL);
-	if (ft_strchr(cmd_path, '/'))
-		return (cmd_path);
-	free(cmd_path);
+	(*cmd_path) = ft_strdup(cmd_name);
+	if ((*cmd_path) == NULL)
+		return (RETURN_FAILURE);
+	if (ft_strchr((*cmd_path), '/'))
+		return (RETURN_SUCCESS);
+	free((*cmd_path));
 	i = 0;
 	while (path_env[i])
 	{
-		cmd_path = generate_cmd_path(path_env[i], cmd_name);
-		if (cmd_path == NULL)
-			return (NULL);
-		if (access(cmd_path, F_OK | X_OK) == 0)
+		(*cmd_path) = generate_cmd_path(path_env[i], cmd_name);
+		if ((*cmd_path) == NULL)
+			return (RETURN_FAILURE);
+		if (access((*cmd_path), F_OK | X_OK) == 0)
 			break ;
-		free(cmd_path);
+		free((*cmd_path));
 		i++;
 	}
 	if (path_env[i] == NULL)
-		return (NULL);
-	return (cmd_path);
+	{
+		(*cmd_path) = NULL;
+		return (CMD_NOT_FOUND);
+	}
+	return (RETURN_SUCCESS);
 }
 
-char	*get_path_of_cmd(char *cmd_name, char **envp)
+int	get_path_of_cmd(char *cmd_name, char **envp, char **cmd_path)
 {
 	int		i;
 	char	**path_env;
-	char	*cmd_path;
+	int		return_code;
 
 	i = 0;
 	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
 		i++;
 	path_env = ft_split(envp[i], ':');
 	if (path_env == NULL)
-		return (NULL);
-	cmd_path = test_correct_access_cmd(cmd_name, path_env);
+		return (RETURN_FAILURE);
+	return_code = test_correct_access_cmd(cmd_name, path_env, cmd_path);
 	ft_free_double_ptr(path_env);
-	return (cmd_path);
+	return (return_code);
 }

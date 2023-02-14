@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:49:10 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/14 01:34:10 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 02:43:08 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,43 @@ int	main(int ac, char **av, char **envp)
 	tokens = parser(envp);
 	return_code = pre_process(tokens);
 	assign_fd(tokens);
-	if (return_code != RETURN_FAILURE)
-		print_chain(tokens);
+	// if (return_code != RETURN_FAILURE)
+	// 	print_chain(tokens);
+	return_code = fork_and_execute_cmd(tokens);
 	clean_tokens_struct(tokens);
-	(void)tokens;
-	return (0);
+	return (return_code);
 }
+
+// #include <unistd.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// int main()
+// {
+//     char *cmd_path = "/bin/sleep";
+//     char *cmd_args[] = { "sleep", "2", NULL };
+//     char *envp[] = { NULL };
+
+//     int pid = fork();
+//     if (pid == -1)
+//     {
+//         perror("fork");
+//         exit(EXIT_FAILURE);
+//     }
+//     else if (pid == 0)
+//     {
+//         execve(cmd_path, cmd_args, envp);
+//         perror("execve");
+//         exit(EXIT_FAILURE);
+//     }
+//     else
+//     {
+//         int wstatus;
+//         waitpid(pid, &wstatus, 0);
+//         if (WIFEXITED(wstatus))
+//             printf("Child process exited with status %d\n", WEXITSTATUS(wstatus));
+//         else
+//             printf("Child process terminated abnormally\n");
+//     }
+//     return 0;
+// }

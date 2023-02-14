@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:36:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 01:44:24 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 02:06:53 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_token_exe	*parser(char **envp)
 	if (cmd1 == NULL || cmd2 == NULL || pipe_t == NULL)
 		exit(EXIT_FAILURE);
 
-	cmd1->cmd_name = ft_strdup("ls");
-	cmd1->cmd_args = ft_split("-l", ' ');
+	cmd1->cmd_name = ft_strdup("sleep");
+	cmd1->cmd_args = ft_split("2", ' ');
 	if (cmd1->cmd_name == NULL || cmd1->cmd_args == NULL)
 		exit(EXIT_FAILURE);
 	cmd1->envp = envp;
@@ -39,7 +39,7 @@ t_token_exe	*parser(char **envp)
 	pipe_t->fd[PIPE_READ] = -1;
 	pipe_t->fd[PIPE_WRITE] = -1;
 
-	cmd2->cmd_name = ft_strdup("cat251");
+	cmd2->cmd_name = ft_strdup("ls");
 	if (cmd2->cmd_name == NULL)
 		exit(EXIT_FAILURE);
 	cmd2->cmd_args = NULL;

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:16:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 01:42:09 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 02:21:07 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	process_cmd_struct(t_token_exe *token)
 		free(cmd->cmd_path);
 		return (RETURN_FAILURE);
 	}
-	cmd_args[0] = cmd->cmd_path;
+	cmd_args[0] = cmd->cmd_name;
 	cmd_args[cmd->nbr_args + 1] = NULL;
 	i = 0;
 	while (i < cmd->nbr_args)

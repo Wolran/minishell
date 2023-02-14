@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 00:32:18 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 02:46:39 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 int	launch_child_process(t_cmd	*cmd)
 {
 	cmd->pid = fork();
+	// printf("pid : %i\n", cmd->pid);
 	if (cmd->pid == -1)
 		perror("launch_child_process: Cannot launch child");
 	else if (cmd->pid == 0)
 	{
+		// ft_putstr("I'm alive !");
 		dup2(cmd->fd_in, STDIN_FILENO);
 		dup2(cmd->fd_out, STDOUT_FILENO);
-		close(cmd->fd_in);
-		close(cmd->fd_out);
+		// close(cmd->fd_in);
+		// close(cmd->fd_out);
 		if (cmd->cmd_path == NULL)
 			cmd->pid = -1;
 		else
@@ -35,8 +37,8 @@ int	launch_child_process(t_cmd	*cmd)
 	}
 	else
 	{
-		close(cmd->fd_in);
-		close(cmd->fd_out);
+		// close(cmd->fd_in);
+		// close(cmd->fd_out);
 	}
 	return (RETURN_SUCCESS);
 }
@@ -64,6 +66,11 @@ int	wait_for_child(t_token_exe *tokens)
 	while (tokens)
 	{
 		cmd = tokens->content;
+		if (tokens->token_type != cmd_token)
+		{
+			tokens = tokens->next;
+			continue ;
+		}
 		status = waitpid(cmd->pid, &wstatus, 0);
 		if (status == -1)
 			perror("fork_and_execute_cmd: ");
@@ -77,8 +84,10 @@ int	wait_for_child(t_token_exe *tokens)
 
 int	fork_and_execute_cmd(t_token_exe *tokens)
 {
-	t_cmd	*cmd;
+	t_cmd		*cmd;
+	t_token_exe	*first_node;
 
+	first_node = tokens;
 	while (tokens)
 	{
 		cmd = tokens->content;
@@ -94,5 +103,5 @@ int	fork_and_execute_cmd(t_token_exe *tokens)
 			return (EXIT_FAILURE);
 		tokens = tokens->next;
 	}
-	return (wait_for_child(tokens));
+	return (wait_for_child(first_node));
 }

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:12:05 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 02:44:16 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:38:11 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		print_chain(t_token_exe	*tokens);
 void		assign_fd(t_token_exe *tokens);
 
 //EXECUTE_CMD
-int			fork_and_execute_cmd(t_token_exe *tokens);
+int			execute_cmds(t_token_exe *tokens);
 
 // GET_PATH_CMD
 int			get_path_of_cmd(char *cmd_name, char **envp, char **cmd_path);

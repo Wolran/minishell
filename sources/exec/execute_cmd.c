@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 02:46:39 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:41:28 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,13 @@ int	launch_child_process(t_cmd	*cmd)
 	return (RETURN_SUCCESS);
 }
 
-int	size_of_array(t_token_exe *tokens)
-{
-	int	size;
-
-	size = 0;
-	while (tokens)
-	{
-		if (tokens->token_type == cmd_token)
-			size++;
-		tokens = tokens->next;
-	}
-	return (size);
-}
-
 int	wait_for_child(t_token_exe *tokens)
 {
 	int		wstatus;
 	pid_t	status;
 	t_cmd	*cmd;
 
-	while (tokens)
+	while (tokens && tokens->token_type != list_cmd)
 	{
 		cmd = tokens->content;
 		if (tokens->token_type != cmd_token)
@@ -88,7 +74,7 @@ int	fork_and_execute_cmd(t_token_exe *tokens)
 	t_token_exe	*first_node;
 
 	first_node = tokens;
-	while (tokens)
+	while (tokens && tokens->token_type != list_cmd)
 	{
 		cmd = tokens->content;
 		if (tokens->token_type != cmd_token)
@@ -104,4 +90,27 @@ int	fork_and_execute_cmd(t_token_exe *tokens)
 		tokens = tokens->next;
 	}
 	return (wait_for_child(first_node));
+}
+
+int	handle_list_cmd(t_token_exe	*tokens)
+{
+	int	return_code;
+
+	return_code = RETURN_FAILURE;
+	while (tokens)
+	{
+		if (tokens->token_type == list_cmd)
+			tokens = tokens->next;
+		if (!tokens)
+			return (RETURN_SUCCESS);
+		return_code = fork_and_execute_cmd(tokens);
+		while (tokens && tokens->token_type != list_cmd)
+			tokens = tokens->next;
+	}
+	return (return_code);
+}
+
+int	execute_cmds(t_token_exe *tokens)
+{
+	return (handle_list_cmd(tokens));
 }

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:49:10 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/14 02:43:08 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:38:19 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	tokens = parser(envp);
-	return_code = pre_process(tokens);
+	if (pre_process(tokens) == RETURN_FAILURE)
+	{
+		clean_tokens_struct(tokens);
+		return (EXIT_FAILURE);
+	}
 	assign_fd(tokens);
-	// if (return_code != RETURN_FAILURE)
-	// 	print_chain(tokens);
-	return_code = fork_and_execute_cmd(tokens);
+	print_chain(tokens);
+	return_code = execute_cmds(tokens);
 	clean_tokens_struct(tokens);
 	return (return_code);
 }

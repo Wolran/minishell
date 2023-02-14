@@ -38,6 +38,7 @@ DEP_DIR= dep/
 
 SRC_FILE=	\
 			core/clean_token.c \
+			exec/assign_fd.c \
 			exec/execute_cmd.c \
 			exec/get_path_cmd.c \
 			exec/pre_process.c \

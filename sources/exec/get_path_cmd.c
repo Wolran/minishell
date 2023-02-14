@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:27:26 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 00:34:46 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:17:14 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ char	*generate_cmd_path(char *path_env, char *cmd_name)
 	return (path_cmd);
 }
 
-int	test_correct_access_cmd(char *cmd_name, char **path_env,
-		char **cmd_path)
+int	test_correct_access_cmd(char *cmd_name, char **path_env, char **cmd_path)
 {
-	int		i;
+	int	i;
 
 	(*cmd_path) = ft_strdup(cmd_name);
 	if ((*cmd_path) == NULL)

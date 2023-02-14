@@ -6,12 +6,12 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 23:32:33 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/08 23:35:53 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:40:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#ifndef COLOR_H
+# define COLOR_H
 
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"

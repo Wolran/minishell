@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/16 02:31:17 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:07:32 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	run_env(t_minishell *minishell, t_cmd *cmd)
 {
 	char	**envp;
 
-	(void)cmd;
+	if (size_double_char(cmd->cmd_args) != 1)
+	{
+		printf("env: too many arguments.");
+	}
 	envp = convert_env_to_char(minishell->envp);
 	if (envp == NULL)
 	{

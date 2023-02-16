@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.h                                             :+:      :+:    :+:   */
+/*   t_list.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 18:50:32 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 18:51:30 by troberts         ###   ########.fr       */
+/*   Created: 2023/02/15 10:03:34 by troberts          #+#    #+#             */
+/*   Updated: 2023/02/15 10:16:03 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_H
-# define CORE_H
+#ifndef T_LIST_H
+# define T_LIST_H
 
-# include "minishell.h"
+# define T_LIST
 
-// CLEAN
-void	clean_tokens_struct(t_token_exe *tokens);
+typedef struct s_list
+{
+	char			*content;
+	struct s_list	*next;
+}					t_list;
 
 #endif

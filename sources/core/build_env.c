@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:57:37 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/16 01:05:06 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 21:00:25 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,19 @@ t_list	*convert_env_to_list(char **envp)
 	while (envp[i])
 	{
 		node = malloc(sizeof(*node));
-		node->content = ft_strdup(envp[i]);
-		node->next = NULL;
-		if (node->content == NULL)
+		if (node == NULL)
 		{
 			ft_lstclear(&envp_lst, free);
 			return (NULL);
 		}
+		node->content = ft_strdup(envp[i]);
+		if (node->content == NULL)
+		{
+			free(node);
+			ft_lstclear(&envp_lst, free);
+			return (NULL);
+		}
+		node->next = NULL;
 		ft_lstadd_back(&envp_lst, node);
 		i++;
 	}

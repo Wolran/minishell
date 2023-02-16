@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:49:10 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/14 15:38:19 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 02:29:51 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,30 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	t_token_exe	*tokens;
+	t_minishell	minishell;
 	int			return_code;
 
 	(void)ac;
 	(void)av;
-	tokens = parser(envp);
-	if (pre_process(tokens) == RETURN_FAILURE)
+	minishell.tokens = parser(envp);
+	minishell.envp = convert_env_to_list(envp);
+	if (minishell.envp == NULL)
 	{
-		clean_tokens_struct(tokens);
 		return (EXIT_FAILURE);
 	}
-	assign_fd(tokens);
-	print_chain(tokens);
-	return_code = execute_cmds(tokens);
-	clean_tokens_struct(tokens);
+	if (pre_process(minishell.tokens) == RETURN_FAILURE)
+	{
+		clean_minishell(&minishell);
+		return (EXIT_FAILURE);
+	}
+	assign_fd(minishell.tokens);
+	//print_chain(minishell.tokens);
+	//print_double_char(envp);
+	
+	//print_double_char(convert_env_to_char(minishell.envp));
+	return_code = execute_cmds(&minishell);
+	return_code = 0;
+	clean_minishell(&minishell);
 	return (return_code);
 }
 

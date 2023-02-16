@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/16 02:18:26 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 02:26:47 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_list		*convert_env_to_list(char **envp);
 char		**convert_env_to_char(t_list *envp_lst);
 
 // CLEAN
-void		clean_tokens_struct(t_token_exe *tokens);
+void		clean_minishell(t_minishell *minishell);
 
 /* EXEC */
 

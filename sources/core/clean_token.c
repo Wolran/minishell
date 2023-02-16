@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:23:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 02:21:29 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 02:25:31 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,10 @@ void	clean_tokens_struct(t_token_exe *tokens)
 		free(previous_node->content);
 		free(previous_node);
 	}
+}
+
+void	clean_minishell(t_minishell *minishell)
+{
+	clean_tokens_struct(minishell->tokens);
+	ft_lstclear(&minishell->envp, free);
 }

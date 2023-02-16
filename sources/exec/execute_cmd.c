@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/15 11:19:44 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 02:23:47 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	wait_for_child(t_token_exe *tokens)
 	while (tokens && tokens->token_type != list_cmd)
 	{
 		cmd = tokens->content;
-		if (tokens->token_type != cmd_token)
+		if (tokens->token_type != cmd_token || cmd->pid == 0)
 		{
 			tokens = tokens->next;
 			continue ;
@@ -68,7 +68,7 @@ int	wait_for_child(t_token_exe *tokens)
 		return (EXIT_FAILURE);
 }
 
-int	fork_and_execute_cmd(t_token_exe *tokens)
+int	fork_and_execute_cmd(t_minishell *minishell, t_token_exe *tokens)
 {
 	t_cmd		*cmd;
 	t_token_exe	*first_node;
@@ -82,7 +82,8 @@ int	fork_and_execute_cmd(t_token_exe *tokens)
 			tokens = tokens->next;
 			continue ;
 		}
-		launch_child_process(cmd);
+		if (run_if_buitins(minishell, cmd) == RETURN_FAILURE)
+			launch_child_process(cmd);
 		if (cmd->pid == -1 && cmd->cmd_path == NULL)
 			return (CMD_NOT_FOUND);
 		if (cmd->pid == -1)
@@ -105,7 +106,7 @@ int	handle_list_cmd(t_minishell *minishell)
 			tokens = tokens->next;
 		if (!tokens)
 			return (RETURN_SUCCESS);
-		return_code = fork_and_execute_cmd(tokens);
+		return_code = fork_and_execute_cmd(minishell, tokens);
 		while (tokens && tokens->token_type != list_cmd)
 			tokens = tokens->next;
 	}

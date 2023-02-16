@@ -37,6 +37,15 @@ DEP_DIR= dep/
 # **************************************************************************** #
 
 SRC_FILE=	\
+			builtins/run_builtins.c \
+			builtins/run_echo.c \
+			builtins/run_cd.c \
+			builtins/run_pwd.c \
+			builtins/run_export.c \
+			builtins/run_unset.c \
+			builtins/run_env.c \
+			builtins/run_exit.c \
+			\
 			core/build_env.c \
 			core/clean_token.c \
 			\
@@ -46,7 +55,8 @@ SRC_FILE=	\
 			exec/pre_process.c \
 			\
 			fake_parser.c \
-			main.c
+			main.c \
+			utils.c
 
 SRC=		$(addprefix $(SRC_DIR), $(SRC_FILE))
 OBJ=		$(addprefix obj/, ${SRC_FILE:.c=.o})

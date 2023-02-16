@@ -6,7 +6,7 @@
 #    By: troberts <troberts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 01:33:16 by troberts          #+#    #+#              #
-#    Updated: 2023/02/07 18:22:09 by troberts         ###   ########.fr        #
+#    Updated: 2023/02/16 01:03:06 by troberts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME= libft.a
 
-CFLAGS= -Wall -Wextra -Werror -I $(INCLUDES)
+CFLAGS= -Wall -Wextra -Werror -g3 -I$(INCLUDES)
 
 AR= ar
 ARARCH= -cr

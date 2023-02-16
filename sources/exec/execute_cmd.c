@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 15:41:28 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:19:44 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ int	fork_and_execute_cmd(t_token_exe *tokens)
 	return (wait_for_child(first_node));
 }
 
-int	handle_list_cmd(t_token_exe	*tokens)
+int	handle_list_cmd(t_minishell *minishell)
 {
-	int	return_code;
+	int			return_code;
+	t_token_exe	*tokens;
 
+	tokens = minishell->tokens;
 	return_code = RETURN_FAILURE;
 	while (tokens)
 	{
@@ -110,7 +112,7 @@ int	handle_list_cmd(t_token_exe	*tokens)
 	return (return_code);
 }
 
-int	execute_cmds(t_token_exe *tokens)
+int	execute_cmds(t_minishell *minishell)
 {
-	return (handle_list_cmd(tokens));
+	return (handle_list_cmd(minishell));
 }

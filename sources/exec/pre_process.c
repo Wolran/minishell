@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:16:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/16 20:58:53 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 21:04:18 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	process_cmd_struct(t_token_exe *token)
 		== RETURN_FAILURE)
 		return (RETURN_FAILURE);
 	cmd_args = malloc(sizeof(*cmd_args) * (cmd->nbr_args + 1 + 1));
-	//cmd_args = NULL;
 	if (cmd_args == NULL)
 	{
 		ft_strdel(&(cmd->cmd_path));

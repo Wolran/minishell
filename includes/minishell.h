@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/16 02:26:47 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 22:51:11 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,13 @@ typedef struct s_minishell {
 /* FAKE PARSER */
 t_token_exe	*parser(char **envp);
 void		print_chain(t_token_exe	*tokens);
+
+/* UTILS */
 void		print_double_char(char **str);
+int			size_double_char(char **str);
 
 /* BUILTINS */
+int			is_buitins(char *cmd_name);
 int			run_if_buitins(t_minishell *minishell, t_cmd *cmd);
 int			run_echo(t_minishell *minishell, t_cmd *cmd);
 int			run_cd(t_minishell *minishell, t_cmd *cmd);

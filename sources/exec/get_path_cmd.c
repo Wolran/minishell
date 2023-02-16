@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:27:26 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 01:17:14 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 22:52:41 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int	get_path_of_cmd(char *cmd_name, char **envp, char **cmd_path)
 	char	**path_env;
 	int		return_code;
 
+	if (is_buitins(cmd_name) == RETURN_SUCCESS)
+	{
+		*cmd_path = ft_strdup("");
+		return (RETURN_SUCCESS);
+	}
 	i = 0;
 	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
 		i++;

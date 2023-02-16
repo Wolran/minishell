@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:49:10 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/16 02:29:51 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:48:17 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int ac, char **av, char **envp)
 	minishell.envp = convert_env_to_list(envp);
 	if (minishell.envp == NULL)
 	{
+		clean_minishell(&minishell);
 		return (EXIT_FAILURE);
 	}
 	if (pre_process(minishell.tokens) == RETURN_FAILURE)
@@ -58,8 +59,9 @@ int	main(int ac, char **av, char **envp)
 		clean_minishell(&minishell);
 		return (EXIT_FAILURE);
 	}
+	print_chain(minishell.tokens);
 	assign_fd(minishell.tokens);
-	//print_chain(minishell.tokens);
+	
 	//print_double_char(envp);
 	
 	//print_double_char(convert_env_to_char(minishell.envp));
@@ -68,37 +70,3 @@ int	main(int ac, char **av, char **envp)
 	clean_minishell(&minishell);
 	return (return_code);
 }
-
-// #include <unistd.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// int main()
-// {
-//     char *cmd_path = "/bin/sleep";
-//     char *cmd_args[] = { "sleep", "2", NULL };
-//     char *envp[] = { NULL };
-
-//     int pid = fork();
-//     if (pid == -1)
-//     {
-//         perror("fork");
-//         exit(EXIT_FAILURE);
-//     }
-//     else if (pid == 0)
-//     {
-//         execve(cmd_path, cmd_args, envp);
-//         perror("execve");
-//         exit(EXIT_FAILURE);
-//     }
-//     else
-//     {
-//         int wstatus;
-//         waitpid(pid, &wstatus, 0);
-//         if (WIFEXITED(wstatus))
-//             printf("Child process exited with status %d\n", WEXITSTATUS(wstatus));
-//         else
-//             printf("Child process terminated abnormally\n");
-//     }
-//     return 0;
-// }

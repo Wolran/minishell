@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:16:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 02:21:07 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:58:53 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,27 @@ int	process_cmd_struct(t_token_exe *token)
 		== RETURN_FAILURE)
 		return (RETURN_FAILURE);
 	cmd_args = malloc(sizeof(*cmd_args) * (cmd->nbr_args + 1 + 1));
+	//cmd_args = NULL;
 	if (cmd_args == NULL)
 	{
-		free(cmd->cmd_path);
+		ft_strdel(&(cmd->cmd_path));
 		return (RETURN_FAILURE);
 	}
-	cmd_args[0] = cmd->cmd_name;
-	cmd_args[cmd->nbr_args + 1] = NULL;
 	i = 0;
-	while (i < cmd->nbr_args)
+	while (i < (cmd->nbr_args + 1))
 	{
-		cmd_args[i + 1] = ft_strdup(cmd->cmd_args[i]);
-		if (cmd_args[i + 1] == NULL)
+		if (i == 0)
+			cmd_args[i] = ft_strdup(cmd->cmd_name);
+		else
+			cmd_args[i] = ft_strdup(cmd->cmd_args[i - 1]);
+		if (cmd_args[i] == NULL)
 		{
 			ft_free_double_ptr(cmd_args);
 			return (RETURN_FAILURE);
 		}
 		i++;
 	}
+	cmd_args[i] = NULL;
 	ft_free_double_ptr(cmd->cmd_args);
 	cmd->cmd_args = cmd_args;
 	return (RETURN_SUCCESS);

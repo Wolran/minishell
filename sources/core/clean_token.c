@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:23:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/16 20:28:02 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:41:52 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	clean_node(t_token_exe *tokens)
 	if (tokens->token_type == cmd_token)
 	{
 		cmd_t = tokens->content;
-		ft_strdel(&(cmd_t->cmd_name));
+		free(cmd_t->cmd_name);
+		cmd_t->cmd_name = NULL;
 		free(cmd_t->cmd_path);
+		cmd_t->cmd_path = NULL;
 		ft_free_double_ptr(cmd_t->cmd_args);
 	}
 	else if (tokens->token_type == pipe_token)

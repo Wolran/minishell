@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_double_ptr.c                               :+:      :+:    :+:   */
+/*   run_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/07 16:42:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/13 16:51:27 by troberts         ###   ########.fr       */
+/*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
+/*   Updated: 2023/02/16 02:31:17 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_free_double_ptr(char **array_char)
+int	run_env(t_minishell *minishell, t_cmd *cmd)
 {
-	size_t	i;
+	char	**envp;
 
-	if (array_char == NULL)
-		return ;
-	i = 0;
-	while (array_char[i])
+	(void)cmd;
+	envp = convert_env_to_char(minishell->envp);
+	if (envp == NULL)
 	{
-		free(array_char[i]);
-		i++;
+		printf("echo: malloc error\n");
+		return (EXIT_FAILURE);
 	}
-	free(array_char);
+	print_double_char(envp);
+	free(envp);
+	return (EXIT_SUCCESS);
 }

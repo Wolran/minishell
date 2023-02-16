@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_echo.c                                        :+:      :+:    :+:   */
+/*   run_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 10:17:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/07 18:33:36 by troberts         ###   ########.fr       */
+/*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
+/*   Updated: 2023/02/16 02:18:26 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pars_echo(t_mini *mini)
+int	run_cd(t_minishell *minishell, t_cmd *cmd)
 {
-	char *temp;
-
-	temp = ft_next_word(mini->pars.token.line)
-	if (strcmp("-n", ))
+	(void)minishell;
+	(void)cmd;
+	printf("Not working.\n");
+	return (EXIT_SUCCESS);
 }
-

@@ -1,13 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote*2.c                                          :+:      :+:    :+:   */
+/*   run_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 18:56:31 by vmuller           #+#    #+#             */
-/*   Updated: 2023/01/28 18:57:44 by vmuller          ###   ########.fr       */
+/*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
+/*   Updated: 2023/02/16 02:18:26 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	run_exit(t_minishell *minishell, t_cmd *cmd)
+{
+	(void)minishell;
+	(void)cmd;
+	printf("Not working.\n");
+	return (EXIT_SUCCESS);
+}

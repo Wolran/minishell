@@ -16,7 +16,7 @@
 
 NAME= minishell
 
-# CC= clang
+CC= clang
 CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
 LDFLAGS=
 DEPFLAGS= -MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
@@ -37,20 +37,31 @@ DEP_DIR= dep/
 # **************************************************************************** #
 
 SRC_FILE=	\
-			parsing/error_pars.c \
-			parsing/init_pars.c \
-			parsing/pars_echo.c \
-			parsing/parsing.c \
-			parsing/quote.c \
-			parsing/quote*2.c \
-			parsing/utils.c \
-			main.c
+			builtins/run_builtins.c \
+			builtins/run_echo.c \
+			builtins/run_cd.c \
+			builtins/run_pwd.c \
+			builtins/run_export.c \
+			builtins/run_unset.c \
+			builtins/run_env.c \
+			builtins/run_exit.c \
+			\
+			core/build_env.c \
+			core/clean_token.c \
+			\
+			exec/assign_fd.c \
+			exec/execute_cmd.c \
+			exec/get_path_cmd.c \
+			exec/pre_process.c \
+			\
+			fake_parser.c \
+			main.c \
+			utils.c
 
 SRC=		$(addprefix $(SRC_DIR), $(SRC_FILE))
-OBJ_FILE= 	$(SRC_FILE:.c=.o)
-OBJ=		$(addprefix $(OBJ_DIR), $(OBJ_FILE))
+OBJ=		$(addprefix obj/, ${SRC_FILE:.c=.o})
 DEP_FILE=	$(SRC_FILE:.c=.o)
-DEP=		$(addprefix $(DEP_DIR), $(DEP_FILE))
+DEP=		$(addprefix dep/, ${SRC_FILE:.c=.o})
 #OBJ=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 # **************************************************************************** #
@@ -112,8 +123,8 @@ $(NAME): FORCE header
 
 FORCE: ;
 
-malloc_test: $(OBJ)
-	$(CC) $(CFLAGS) $(LDFLAGS) -fsanitize=undefined -rdynamic -o $@ $(OBJ) -L. -lmallocator
+malloc_test: $(OBJ) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(LDFLAGS) -fsanitize=undefined -rdynamic -o $@ $(OBJ) $(LIBFT_LIB) -L. -lmallocator
 
 bonus: $(NAME)
 
@@ -146,8 +157,9 @@ reobj: FORCE header cleanobj
 # $(DEP_DIR):
 # 	mkdir -p $@
 
-# $(DEP): $(SRC_DIR)%.c
-# 	$(CC) $(DEPFLAGS) $(CFLAGS) -o $@
+$(DEP): $(SRC_DIR)%.c
+	@mkdir -p $(@D)
+	$(CC) $(DEPFLAGS) $(CFLAGS) -o $@
 
 header:
 	$(HEADER)
@@ -209,4 +221,4 @@ norm: header
 # ... (other rules etc.)
 # 
 # #This below has to be at the end of the Makefile, else it does not work
--include $(DEP_FILE)
+-include $(DEP)

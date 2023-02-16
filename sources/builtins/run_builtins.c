@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_builtins.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/16 01:58:56 by troberts          #+#    #+#             */
+/*   Updated: 2023/02/16 02:23:20 by troberts         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	run_if_buitins(t_minishell *minishell, t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd_name, "echo") == 0)
+		minishell->return_code = run_echo(minishell, cmd);
+	else if (ft_strcmp(cmd->cmd_name, "cd") == 0)
+		minishell->return_code = run_cd(minishell, cmd);
+	else if (ft_strcmp(cmd->cmd_name, "pwd") == 0)
+		minishell->return_code = run_pwd(minishell, cmd);
+	else if (ft_strcmp(cmd->cmd_name, "export") == 0)
+		minishell->return_code = run_export(minishell, cmd);
+	else if (ft_strcmp(cmd->cmd_name, "unset") == 0)
+		minishell->return_code = run_unset(minishell, cmd);
+	else if (ft_strcmp(cmd->cmd_name, "env") == 0)
+		minishell->return_code = run_env(minishell, cmd);
+	else if (ft_strcmp(cmd->cmd_name, "exit") == 0)
+		minishell->return_code = run_exit(minishell, cmd);
+	else
+		return (RETURN_FAILURE);
+	cmd->pid = 0; // Idea: maybe fork here to return the correct error code.
+	return (RETURN_SUCCESS);
+}

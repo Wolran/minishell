@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/16 02:23:47 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/16 02:39:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	wait_for_child(t_token_exe *tokens)
 	pid_t	status;
 	t_cmd	*cmd;
 
+	wstatus = 0;
 	while (tokens && tokens->token_type != list_cmd)
 	{
 		cmd = tokens->content;

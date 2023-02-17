@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/16 22:51:11 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/17 02:47:35 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		print_chain(t_token_exe	*tokens);
 /* UTILS */
 void		print_double_char(char **str);
 int			size_double_char(char **str);
+int			this_is_ub(int exit_code);
 
 /* BUILTINS */
 int			is_buitins(char *cmd_name);

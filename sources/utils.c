@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:11:47 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/16 21:47:31 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/17 02:41:30 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,10 @@ void	print_double_char(char **str)
 		printf("%s\n", str[i]);
 		i++;
 	}
+}
+
+int	this_is_ub(int exit_code)
+{
+	ft_putstr_fd(RICK_ROLL, STDOUT_FILENO);
+	return (exit_code);
 }

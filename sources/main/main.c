@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:46 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/17 04:15:42 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/02/17 19:25:47 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_sig	g_sig;
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av, char **env)
 		ft_bzero(&g_sig, sizeof(t_sig));
 		parse(&mini);
 		if (mini.token && check_line(&mini, mini.token) && mini.exit == 0)
-			//test_start(&mini); //ta partie
+			(void)ac; //ta partie
 	}
 	free_token(mini.token);
 	free_env(mini.env);

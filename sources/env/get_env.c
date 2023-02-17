@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static int	env_value_len(const char *env)
 {
@@ -47,20 +47,20 @@ static char	*env_value(char *env)
 	return (value);
 }
 
-char	*get_env_value(char *arg, t_env *env)
+char	*get_env_value(char *arg, t_list *env)
 {
 	char	env_name[BUF_SIZE];
 	char	*env_val;
 
 	env_val = ft_strdup("");
-	while (env && env->value)
+	while (env && env->content)
 	{
-		name_env(env_name, env->value);
+		name_env(env_name, env->content);
 		if (ft_strcmp(arg, env_name) == 0)
 		{
-			ft_memdel(env_val);
-			ft_memdel(arg);
-			env_val = env_value(env->value);
+			ft_strdel(&env_val);
+			ft_strdel(&arg);
+			env_val = env_value(env->content);
 			return (env_val);
 		}
 		env = env->next;

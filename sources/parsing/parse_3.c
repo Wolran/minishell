@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	quote(char *line, int nb)
 {
@@ -68,7 +68,7 @@ int	check_quote(t_mini *mini, char *line)
 	if (!check_echo(line) && quote_next(line, ft_strlen(line) + 2, 0))
 	{
 		ft_putendl_fd("minishell: syntax error open quotes", STDERR);
-		ft_memdel(line);
+		ft_strdel(&line);
 		mini->ret = 2;
 		mini->token = NULL;
 		return (1);
@@ -78,7 +78,7 @@ int	check_quote(t_mini *mini, char *line)
 		if (!check_echo(line) && quote_next(line, ft_strlen(line) + 2, 0) == 0)
 			return (0);
 		ft_putendl_fd("minishell: syntax error open quotes", STDERR);
-		ft_memdel(line);
+		ft_strdel(&line);
 		mini->ret = 2;
 		mini->token = NULL;
 		return (1);

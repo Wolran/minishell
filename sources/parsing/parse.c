@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 extern t_sig	g_sig;
 
@@ -61,7 +61,7 @@ void	parse3(t_mini *mini, char *line, t_token *token)
 	}
 	token = mini->token;
 	add_history(line);
-	ft_memdel(line);
+	ft_strdel(&line);
 	multiple_arg(mini);
 	while (token)
 	{
@@ -82,7 +82,7 @@ void	parse(t_mini *mini)
 	line = readline(PROMPT);
 	if (!line)
 	{
-		ft_memdel(line);
+		ft_strdel(&line);
 		ft_putendl_fd("exit", STDERR);
 		mini->exit = 1;
 		return ;

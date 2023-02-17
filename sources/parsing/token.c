@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ignor_sep(char *line, int i)
 {
@@ -102,6 +102,12 @@ void	token_type(t_token *token, int sep)
 		token->type = CMD;
 	else
 		token->type = ARG;
+}
+
+void	ft_skip_space(char *line, int *i)
+{
+	(void)line;
+	(void)i;
 }
 
 t_token	*get_token(char *line)

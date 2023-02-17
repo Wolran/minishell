@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 //ne sert a rien pour l'instant
 t_token	*next_sep(t_token *token, int skip)
 {

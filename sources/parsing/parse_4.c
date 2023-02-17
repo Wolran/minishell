@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	quote_check(char *line, int i)
 {
@@ -61,7 +61,7 @@ static char	*echo_env(char *line, char *test, int i)
 	return (echo_test(line, k, j, test));
 }
 
-char	find_next_line(t_env *env, char *line, t_mini *mini, int i)
+char	find_next_line(t_list *env, char *line, t_mini *mini, int i)
 {
 	char	*test;
 
@@ -72,17 +72,17 @@ char	find_next_line(t_env *env, char *line, t_mini *mini, int i)
 		test = echo_env(line, test, mini->echo);
 	else
 		test = copy_line(line, test, 1, 0);
-	while (env && env->value)
+	while (env && env->content)
 	{
-		if (ft_strncmp(test, env->value, ft_strlen(test)) == 0)
+		if (ft_strncmp(test, env->content, ft_strlen(test)) == 0)
 		{
 			mini->check = 1;
-			ft_memdel(test);
+			ft_strdel(&test);
 			return ((char)(-line[i++]));
 		}
 		env = env->next;
 	}
-	ft_memdel(test);
+	ft_strdel(&test);
 	if (quote_check(line, i))
 		return (-line[i]);
 	return (line[i]);
@@ -91,7 +91,7 @@ char	find_next_line(t_env *env, char *line, t_mini *mini, int i)
 char	*line_test(char *new, int j, char *line)
 {
 	new[j] = '\0';
-	ft_memdel(line);
+	ft_strdel(&line);
 	return (new);
 }
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static int	ret_size(int ret)
 {
@@ -19,11 +19,11 @@ static int	ret_size(int ret)
 
 	tmp = ft_itoa(ret);
 	ret_len = ft_strlen(tmp);
-	ft_memdel(tmp);
+	ft_strdel(&tmp);
 	return (ret_len);
 }
 
-int	get_arg_len(int pos, char *arg, t_env *env, int ret)
+int	get_arg_len(int pos, char *arg, t_list *env, int ret)
 {
 	char	var_name[BUF_SIZE];
 	char	*var_value;
@@ -43,7 +43,7 @@ int	get_arg_len(int pos, char *arg, t_env *env, int ret)
 	var_name[i] = '\0';
 	var_value = get_env_value(var_name, env);
 	i = ft_strlen(var_value);
-	ft_memdel(var_value);
+	ft_strdel(&var_value);
 	return (i);
 }
 

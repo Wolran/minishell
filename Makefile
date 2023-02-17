@@ -16,9 +16,9 @@
 
 NAME= minishell
 
-CC= clang
+# CC= clang
 CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
-LDFLAGS=
+LDFLAGS= -lreadline
 DEPFLAGS= -MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
 
 INCLUDE = -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(LIBFT_INC)
@@ -49,14 +49,33 @@ SRC_FILE=	\
 			core/build_env.c \
 			core/clean_token.c \
 			\
+			env/env.c \
+			env/get_env.c \
+			\
 			exec/assign_fd.c \
 			exec/execute_cmd.c \
 			exec/get_path_cmd.c \
 			exec/pre_process.c \
 			\
+			main/main.c \
+			main/signal.c \
+			\
+			parsing/check.c \
+			parsing/get_arg.c \
+			parsing/parse_2.c \
+			parsing/parse_3.c \
+			parsing/parse_4.c \
+			parsing/parse.c \
+			parsing/token_2.c \
+			parsing/token.c \
+			\
+			utils/free.c \
+			utils/type.c \
+			\
 			fake_parser.c \
-			main.c \
 			utils.c
+
+#			main.c \
 
 SRC=		$(addprefix $(SRC_DIR), $(SRC_FILE))
 OBJ=		$(addprefix obj/, ${SRC_FILE:.c=.o})

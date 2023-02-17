@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static char	*malloc_line(char *line)
 {
@@ -52,7 +52,7 @@ static char	*find_line_arg(char *new, int *j, int *i, char *line)
 	return (new);
 }
 
-char	*find_line(char *line, t_mini *mini, t_env *env)
+char	*find_line(char *line, t_mini *mini, t_list *env)
 {
 	char	*new;
 	int		i;

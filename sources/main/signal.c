@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 extern t_sig	g_sig;
 
@@ -51,5 +51,5 @@ void	sig_quit(int a)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	ft_memdel(nbr);
+	ft_strdel(&nbr);
 }

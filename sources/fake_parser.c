@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:36:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/17 02:35:08 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:17:44 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ t_token_exe	*parser(char **envp)
 	if (cmd1 == NULL || cmd2 == NULL || pipe_t == NULL)
 		exit(EXIT_FAILURE);
 
-	cmd1->cmd_name = ft_strdup("pwd");
-	cmd1->cmd_args = ft_split("", ' ');
+	cmd1->cmd_name = ft_strdup("export");
+	cmd1->cmd_args = ft_split("TZ=test", ' ');
 	if (cmd1->cmd_name == NULL || cmd1->cmd_args == NULL)
 		exit(EXIT_FAILURE);
 	cmd1->cmd_path = NULL;
 	cmd1->envp = envp;
-	cmd1->nbr_args = 0;
+	cmd1->nbr_args = 1;
 	cmd1->fd_in = -1;
 	cmd1->fd_out = -1;
 
 	pipe_t->fd[PIPE_READ] = -1;
 	pipe_t->fd[PIPE_WRITE] = -1;
 
-	cmd2->cmd_name = ft_strdup("echo");
+	cmd2->cmd_name = ft_strdup("env");
 	if (cmd2->cmd_name == NULL)
 		exit(EXIT_FAILURE);
 	cmd2->cmd_args = ft_split("", ' ');

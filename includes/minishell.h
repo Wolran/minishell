@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/17 19:22:22 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/19 01:03:55 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ struct					s_mini
 	int					echo;
 };
 
+typedef struct s_minishell
+{
+	t_token_exe			*tokens;
+	t_list				*envp;
+	int					return_code;
+}						t_minishell;
+
 struct					s_sig
 {
 	int					sigquit;
@@ -76,12 +83,6 @@ struct					s_sig
 	pid_t				pid;
 };
 
-// struct s_env
-// {
-// 	char				*value;
-// 	struct s_env		*next;
-// };
-
 struct					s_token
 {
 	char				*str;
@@ -89,13 +90,6 @@ struct					s_token
 	struct s_token		*next;
 	struct s_token		*prev;
 };
-
-typedef struct s_minishell
-{
-	t_token_exe			*tokens;
-	t_list				*envp;
-	int					return_code;
-}						t_minishell;
 
 /* PARSER FUNCTIONS */
 
@@ -153,6 +147,8 @@ int						run_if_buitins(t_minishell *minishell, t_cmd *cmd);
 int						run_echo(t_minishell *minishell, t_cmd *cmd);
 int						run_cd(t_minishell *minishell, t_cmd *cmd);
 int						run_pwd(t_minishell *minishell, t_cmd *cmd);
+void					run_export_with_str(t_minishell *minishell,
+							char *env_name);
 int						run_export(t_minishell *minishell, t_cmd *cmd);
 int						run_unset(t_minishell *minishell, t_cmd *cmd);
 int						run_env(t_minishell *minishell, t_cmd *cmd);
@@ -181,13 +177,5 @@ int						get_path_of_cmd(char *cmd_name, char **envp,
 
 // PRE_PROCESS
 int						pre_process(t_token_exe *tokens);
-
-// typedef struct s_mini	t_mini;
-
-// struct	s_mini
-// {
-// 	int		exit;
-// 	t_pars	pars;
-// };
 
 #endif

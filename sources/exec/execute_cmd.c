@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/16 02:39:38 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/19 01:07:31 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	wait_for_child(t_token_exe *tokens)
 		}
 		status = waitpid(cmd->pid, &wstatus, 0);
 		if (status == -1)
-			perror("fork_and_execute_cmd: ");
+			perror("fork_and_execute_cmd");
 		tokens = tokens->next;
 	}
 	if (WIFEXITED(wstatus))

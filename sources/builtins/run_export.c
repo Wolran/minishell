@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/18 16:43:54 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/19 01:03:39 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ int	run_unset_for_export(t_minishell *minishell, char *env_name)
 	return (RETURN_SUCCESS);
 }
 
+void	run_export_with_str(t_minishell *minishell, char *env_name)
+{
+	run_unset_for_export(minishell, env_name);
+	ft_lstadd_back(&(minishell->envp),
+		ft_lstnew(ft_strdup(env_name)));
+}
+
 int	run_export(t_minishell *minishell, t_cmd *cmd)
 {
 	int	ac;
@@ -57,9 +64,7 @@ int	run_export(t_minishell *minishell, t_cmd *cmd)
 			i++;
 			continue ;
 		}
-		run_unset_for_export(minishell, cmd->cmd_args[i]);
-		ft_lstadd_back(&(minishell->envp),
-			ft_lstnew(ft_strdup(cmd->cmd_args[i])));
+		run_export_with_str(minishell, cmd->cmd_args[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);

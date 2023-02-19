@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/18 02:12:29 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/19 01:03:55 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ int						run_if_buitins(t_minishell *minishell, t_cmd *cmd);
 int						run_echo(t_minishell *minishell, t_cmd *cmd);
 int						run_cd(t_minishell *minishell, t_cmd *cmd);
 int						run_pwd(t_minishell *minishell, t_cmd *cmd);
+void					run_export_with_str(t_minishell *minishell,
+							char *env_name);
 int						run_export(t_minishell *minishell, t_cmd *cmd);
 int						run_unset(t_minishell *minishell, t_cmd *cmd);
 int						run_env(t_minishell *minishell, t_cmd *cmd);

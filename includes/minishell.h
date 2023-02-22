@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/19 01:03:55 by troberts         ###   ########.fr       */
+/*   Updated: 2023/02/22 04:13:25 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 typedef struct s_token	t_token;
 typedef struct s_mini	t_mini;
 typedef struct s_sig	t_sig;
+typedef struct s_expand	t_expand;
 
 struct					s_mini
 {
@@ -91,8 +92,14 @@ struct					s_token
 	struct s_token		*prev;
 };
 
-/* PARSER FUNCTIONS */
+struct s_expand
+{
+	char				*str;
+	int					i;
+	int					j;
+};
 
+/* PARSER FUNCTIONS */
 void					sig_int(int a);
 void					sig_quit(int a);
 void					parse(t_mini *mini);
@@ -131,6 +138,11 @@ char					*get_env_value(char *arg, t_list *env);
 int						env_char(int c);
 char					*check_env(char *line);
 char					*name_env(char *dest, char *src);
+void					ft_skip_space(const char *str, int *i);
+
+/* EXPAND */
+
+char	*ft_expand(char *str, t_list *env, int ret);
 
 /* FAKE PARSER */
 t_token_exe				*parser(char **envp);
@@ -156,26 +168,26 @@ int						run_exit(t_minishell *minishell, t_cmd *cmd);
 
 /* CORE */
 
-// BUILD_ENV
+/* BUILD_ENV */
 t_list					*convert_env_to_list(char **envp);
 char					**convert_env_to_char(t_list *envp_lst);
 
-// CLEAN
+/* CLEAN */
 void					clean_minishell(t_minishell *minishell);
 
 /* EXEC */
 
-// ASSIGN_FD
+/* ASSIGN_FD */
 void					assign_fd(t_token_exe *tokens);
 
-//EXECUTE_CMD
+/* EXECUTE_CMD */
 int						execute_cmds(t_minishell *minishell);
 
-// GET_PATH_CMD
+/* GET_PATH_CMD */
 int						get_path_of_cmd(char *cmd_name, char **envp,
 							char **cmd_path);
 
-// PRE_PROCESS
+/* PRE_PROCESS */
 int						pre_process(t_token_exe *tokens);
 
 #endif

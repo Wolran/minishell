@@ -68,6 +68,7 @@ SRC_FILE=	\
 			parsing/parse.c \
 			parsing/token_2.c \
 			parsing/token.c \
+			parsing/expand.c \
 			\
 			utils/free.c \
 			utils/type.c \

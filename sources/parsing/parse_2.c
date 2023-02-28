@@ -61,7 +61,7 @@ char	*find_line(char *line, t_mini *mini, t_list *env)
 	new = malloc_line(line);
 	i = 0;
 	j = 0;
-	mini->echo = 0;
+	// mini->echo = 0;
 	while (new && line[i])
 	{
 		if (quote(line, i) != 1 && line[i] == '$' && i && line[i - 1] != '\\'

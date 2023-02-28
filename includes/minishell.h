@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/22 04:13:25 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/02/28 21:37:32 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ struct					s_mini
 	t_list				*export;
 	int					exit;
 	int					ret;
-	int					in;
-	int					out;
+	// int					in;
+	// int					out;
 	int					check;
-	int					echo;
+	// int					echo;
 };
 
 typedef struct s_minishell
@@ -74,6 +74,8 @@ typedef struct s_minishell
 	t_token_exe			*tokens;
 	t_list				*envp;
 	int					return_code;
+	t_bool				inside_pipe;
+	int					exit;
 }						t_minishell;
 
 struct					s_sig
@@ -116,7 +118,7 @@ char					*copy_line(char *line, char *test, int i, int j);
 char					if_dollar(char *line, int i, t_mini *mini);
 int						quote_check(char *line, int i);
 char					*echo_test(char *line, int k, int j, char *test);
-int						check_echo(char *line);
+// int						check_echo(char *line);
 int						int_remove_back(char *line);
 char					*char_remove_back(char *line);
 int						is_valid_arg(t_token *token);
@@ -142,7 +144,7 @@ void					ft_skip_space(const char *str, int *i);
 
 /* EXPAND */
 
-char	*ft_expand(char *str, t_list *env, int ret);
+char					*ft_expand(char *str, t_list *env, int ret);
 
 /* FAKE PARSER */
 t_token_exe				*parser(char **envp);
@@ -176,6 +178,9 @@ char					**convert_env_to_char(t_list *envp_lst);
 void					clean_minishell(t_minishell *minishell);
 
 /* EXEC */
+
+/* CREATE_TOKEN_EXE */
+t_token_exe				*create_token_exe(t_token *old_tokens, t_mini mini);
 
 /* ASSIGN_FD */
 void					assign_fd(t_token_exe *tokens);

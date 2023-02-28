@@ -16,7 +16,7 @@
 
 NAME= minishell
 
-# CC= clang
+CC= clang
 CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
 LDFLAGS= -lreadline
 DEPFLAGS= -MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
@@ -53,6 +53,7 @@ SRC_FILE=	\
 			env/get_env.c \
 			\
 			exec/assign_fd.c \
+			exec/create_token_exe.c \
 			exec/execute_cmd.c \
 			exec/get_path_cmd.c \
 			exec/pre_process.c \

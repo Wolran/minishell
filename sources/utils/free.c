@@ -12,22 +12,6 @@
 
 #include "minishell.h"
 
-void	free_env(t_list *env)
-{
-	t_list	*temp;
-
-	while (env && env->next)
-	{
-		temp = env;
-		env = env->next;
-		ft_memdel((void *)temp->content);
-		ft_memdel((void *)temp);
-	}
-	ft_memdel((void *)env->content);
-	ft_memdel((void *)env);
-	clear_history();
-}
-
 void	free_all_export(t_list *export)
 {
 	t_list	*tmp;
@@ -61,15 +45,13 @@ void	free_split(char **arg)
 
 void	free_token(t_token *token)
 {
-	while (token && token->next)
+	t_token *tmp_node;
+
+	while (token)
 	{
-		ft_memdel((void *)token->str);
+		free(token->str);
+		tmp_node = token;
 		token = token->next;
-		ft_memdel((void *)token->prev);
-	}
-	if (token)
-	{
-		ft_memdel((void *)token->str);
-		ft_memdel((void *)token);
+		free(tmp_node);
 	}
 }

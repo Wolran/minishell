@@ -74,8 +74,8 @@ t_token	*next_token(char *line, int *i)
 		else if (line[*i] == '\\' && int_remove_back(line) && (*i)++)
 		{
 			line = char_remove_back(line);
-			if (check_echo(line))
-				token->str[j++] = line[(*i)++];
+			// if (check_echo(line))
+			// 	token->str[j++] = line[(*i)++];
 		}
 		else
 			token->str[j++] = line[(*i)++];

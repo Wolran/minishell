@@ -65,7 +65,7 @@ static int	quote_next(char *line, int nb, int i)
 
 int	check_quote(t_mini *mini, char *line)
 {
-	if (!check_echo(line) && quote_next(line, ft_strlen(line) + 2, 0))
+	if (quote_next(line, ft_strlen(line) + 2, 0))
 	{
 		ft_putendl_fd("minishell: syntax error open quotes", STDERR);
 		ft_strdel(&line);
@@ -75,7 +75,7 @@ int	check_quote(t_mini *mini, char *line)
 	}	
 	if (quote(line, 2147483647))
 	{
-		if (!check_echo(line) && quote_next(line, ft_strlen(line) + 2, 0) == 0)
+		if (quote_next(line, ft_strlen(line) + 2, 0) == 0)
 			return (0);
 		ft_putendl_fd("minishell: syntax error open quotes", STDERR);
 		ft_strdel(&line);

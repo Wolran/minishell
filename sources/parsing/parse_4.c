@@ -38,40 +38,40 @@ int	quote_check(char *line, int i)
 	return (1);
 }
 
-static char	*echo_env(char *line, char *test, int i)
-{
-	int	k;
-	int	j;
-	int	space;
+// static char	*echo_env(char *line, char *test, int i)
+// {
+// 	int	k;
+// 	int	j;
+// 	int	space;
 
-	k = 0;
-	j = 0;
-	space = 0;
-	test = malloc(sizeof(char) + (ft_strlen(line) - 1));
-	while (line[k] && space != i)
-	{
-		k++;
-		if (line[k] == ' ' || line[k] == '$')
-		{
-			while (line[k] != '$')
-				k++;
-			space++;
-		}
-	}
-	return (echo_test(line, k, j, test));
-}
+// 	k = 0;
+// 	j = 0;
+// 	space = 0;
+// 	test = malloc(sizeof(char) + (ft_strlen(line) - 1));
+// 	while (line[k] && space != i)
+// 	{
+// 		k++;
+// 		if (line[k] == ' ' || line[k] == '$')
+// 		{
+// 			while (line[k] != '$')
+// 				k++;
+// 			space++;
+// 		}
+// 	}
+// 	return (echo_test(line, k, j, test));
+// }
 
 char	find_next_line(t_list *env, char *line, t_mini *mini, int i)
 {
 	char	*test;
 
 	test = NULL;
-	mini->echo += 1;
+	// mini->echo += 1;
 	mini->check = 1;
-	if (ft_strncmp(line, "echo", 4) == 0)
-		test = echo_env(line, test, mini->echo);
-	else
-		test = copy_line(line, test, 1, 0);
+	// if (ft_strncmp(line, "echo", 4) == 0)
+	// 	test = echo_env(line, test, mini->echo);
+	// else
+	test = copy_line(line, test, 1, 0);
 	while (env && env->content)
 	{
 		if (ft_strncmp(test, env->content, ft_strlen(test)) == 0)
@@ -97,7 +97,7 @@ char	*line_test(char *new, int j, char *line)
 
 char	if_dollar(char *line, int i, t_mini *mini)
 {
-	mini->echo += 1;
+	// mini->echo += 1;
 	mini->check = 1;
 	return ((char)(-line[i++]));
 }

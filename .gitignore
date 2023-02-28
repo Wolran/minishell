@@ -26,5 +26,9 @@ malloc_test
 
 # Specific files
 minishell
+notes.txt
+out.txt
+int.txt
 
 # Specific folders
+ft_mallocator

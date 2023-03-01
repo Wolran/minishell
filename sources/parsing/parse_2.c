@@ -33,6 +33,8 @@ static char	*malloc_line(char *line)
 char	*copy_line(char *line, char *test, int i, int j)
 {
 	test = malloc(sizeof(char) + (ft_strlen(line) - 1));
+	if (!test)
+		return (NULL);
 	while (line[i])
 		test[j++] = line[i++];
 	test[j++] = '=';
@@ -47,6 +49,8 @@ static char	*find_line_arg(char *new, int *j, int *i, char *line)
 	new[(*j)++] = line[(*i)++];
 	if (quote(line, *i) == 0 && line[*i] == '>')
 		new[(*j)++] = line[(*i)++];
+	if (quote(line, *i) == 0 && line[*i] == '<')
+		new[(*j)++] = line[(*i)++];
 	if (line[*i] != ' ')
 		new[(*j)++] = ' ';
 	return (new);
@@ -59,6 +63,8 @@ char	*find_line(char *line, t_mini *mini, t_list *env)
 	int		j;
 
 	new = malloc_line(line);
+	if (!new)
+		return (NULL);
 	i = 0;
 	j = 0;
 	// mini->echo = 0;

@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 03:37:03 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/22 04:23:51 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/01 09:43:07 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ char	*ft_expand(char *str, t_list *env, int ret)
 
 	arg_len = ft_arg_size(str, env, ret);
 	ex.str = malloc(sizeof(char) * arg_len + 1);
+	if (!ex.str)
+		return (NULL);
 	ex.i = 0;
 	ex.j = 0;
 	while (ex.i < arg_len && str[ex.j])
@@ -108,8 +110,8 @@ char	*ft_expand(char *str, t_list *env, int ret)
 		while (str[ex.j] == '$')
 		{
 			ex.j++;
-			if ((str[ex.j] == '\0' || ft_isalnum(str[ex.j]) == 0)
-				&& str[ex.j] != '?')
+			if ((str[ex.j] == '\0' || ft_isalnum(str[ex.j]) == 0) \
+			&& str[ex.j] != '?')
 				ex.str[ex.i++] = '$';
 			else
 				ft_inser_value(&ex, str, env, ret);

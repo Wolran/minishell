@@ -14,14 +14,19 @@
 
 int	ignor_sep(char *line, int i)
 {
-	if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '|')
+	if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '|')
 		return (1);
 	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == ';')
 		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1]
-		&& line[i + 1] == '>' && line[i + 2] && line[i + 2] == '>')
+	else if (line[i] && line[i] == '\\' && line[i + 1] \
+	&& line[i + 1] == '>' && line[i + 2] && line[i + 2] == '>')
+		return (1);
+	else if (line[i] && line[i] == '\\' && line[i + 1] \
+	&& line[i + 1] == '<' && line[i + 2] && line[i + 2] == '<')
+		return (1);
+	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>')
+		return (1);
+	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '<')
 		return (1);
 	return (0);
 }
@@ -65,6 +70,7 @@ t_token	*next_token(char *line, int *i)
 	c = ' ';
 	token = malloc(sizeof(t_token));
 	token->str = malloc(sizeof(char) * token_mal(line, i));
+	// need une petite protection en plus de free tout ce qui est deja alloc
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
 		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"') && !sh(line, *i))
@@ -88,10 +94,12 @@ void	token_type(t_token *token, int sep)
 {
 	if (ft_strcmp(token->str, "") == 0)
 		token->type = EMPTY;
-	else if (ft_strcmp(token->str, ">") == 0 && sep == 0)
-		token->type = CHEVRON;
+	else if (ft_strcmp(token->str, "<<") == 0 && sep == 0)
+		token->type = DOUBLE_INPUT;
 	else if (ft_strcmp(token->str, ">>") == 0 && sep == 0)
 		token->type = DOUBLE_CHEVRON;
+	else if (ft_strcmp(token->str, ">") == 0 && sep == 0)
+		token->type = CHEVRON;
 	else if (ft_strcmp(token->str, "<") == 0 && sep == 0)
 		token->type = OPEN_CHEVRON;
 	else if (ft_strcmp(token->str, ";") == 0 && sep == 0)

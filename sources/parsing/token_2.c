@@ -54,7 +54,7 @@ void	multiple_arg(t_mini *mini)
 	while (token)
 	{
 		prev = prev_sep(token, 0);
-		if (is_type(token, ARG) && what_type(prev, "COD"))
+		if (is_type(token, ARG) && what_type(prev, "CODT"))
 		{
 			while (is_valid_arg(prev) == 0)
 				prev = prev->prev;

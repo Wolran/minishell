@@ -31,15 +31,15 @@ int	check_line(t_mini *mini, t_token *token)
 {
 	while (token)
 	{
-		if (what_type(token, "CDO") && (!token->next \
-		|| what_type(token->next, "CDOEP")))
+		if (what_type(token, "CDOT") && (!token->next \
+		|| what_type(token->next, "CDOEPT")))
 		{
 			parse2(token, 1);
 			mini->ret = 258;
 			return (0);
 		}
 		if (what_type(token, "PE") && (!token->next \
-		|| !token->prev || what_type(token->next, "CODEP")))
+		|| !token->prev || what_type(token->next, "CODEPT")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(token->str, STDERR);

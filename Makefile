@@ -72,6 +72,7 @@ SRC_FILE=	\
 			parsing/expand.c \
 			\
 			utils/free.c \
+			utils/node.c \
 			utils/type.c \
 			\
 			fake_parser.c \

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/28 21:37:32 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:39:23 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ struct					s_mini
 {
 	t_token				*token;
 	t_list				*env;
-	t_list				*export;
+	// t_list				*export;
 	int					exit;
 	int					ret;
 	// int					in;
@@ -131,7 +131,6 @@ t_token					*prev_sep(t_token *token, int skip);
 int						sh(char *line, int i);
 char					token_test(char c, int *i, char *line);
 void					multiple_arg(t_mini *mini);
-void					free_env(t_list *env);
 void					free_all_export(t_list *export);
 void					free_token(t_token *token);
 int						set_env(t_mini *mini, char **env);
@@ -176,6 +175,7 @@ char					**convert_env_to_char(t_list *envp_lst);
 
 /* CLEAN */
 void					clean_minishell(t_minishell *minishell);
+void					clean_tokens_struct(t_token_exe *tokens);
 
 /* EXEC */
 
@@ -195,4 +195,6 @@ int						get_path_of_cmd(char *cmd_name, char **envp,
 /* PRE_PROCESS */
 int						pre_process(t_token_exe *tokens);
 
+/* UTILS */
+void					add_node_back(t_token_exe **tokens, t_token_exe *node);
 #endif

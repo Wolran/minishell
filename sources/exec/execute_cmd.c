@@ -6,25 +6,39 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/19 01:07:31 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:34:34 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	launch_child_process(t_cmd	*cmd)
+int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens)
 {
 	cmd->pid = fork();
 	// printf("pid : %i\n", cmd->pid);
 	if (cmd->pid == -1)
 		perror("launch_child_process: Cannot launch child");
-	else if (cmd->pid == 0)
+	if (cmd->pid == 0)
 	{
 		// ft_putstr("I'm alive !");
-		dup2(cmd->fd_in, STDIN_FILENO);
-		dup2(cmd->fd_out, STDOUT_FILENO);
-		// close(cmd->fd_in);
-		// close(cmd->fd_out);
+		if (cmd->fd_in != STDIN_FILENO)
+		{
+			dup2(cmd->fd_in, STDIN_FILENO);
+			close(cmd->fd_in);
+		}
+		if (cmd->fd_out != STDOUT_FILENO)
+		{
+			dup2(cmd->fd_out, STDOUT_FILENO);
+			close(cmd->fd_out);
+		}
+		(void)tokens;
+		// while (tokens)
+		// {
+		// 	if (tokens->token_type == pipe_token)
+		// 	{
+		// 		close(tokens->content.fd[0]);
+		// 	}
+		// }
 		if (cmd->cmd_path == NULL)
 			cmd->pid = -1;
 		else
@@ -37,8 +51,10 @@ int	launch_child_process(t_cmd	*cmd)
 	}
 	else
 	{
-		// close(cmd->fd_in);
-		// close(cmd->fd_out);
+		if (cmd->fd_in != STDIN_FILENO)
+			close(cmd->fd_in);
+		if (cmd->fd_out != STDOUT_FILENO)
+			close(cmd->fd_out);
 	}
 	return (RETURN_SUCCESS);
 }
@@ -58,9 +74,12 @@ int	wait_for_child(t_token_exe *tokens)
 			tokens = tokens->next;
 			continue ;
 		}
-		status = waitpid(cmd->pid, &wstatus, 0);
-		if (status == -1)
-			perror("fork_and_execute_cmd");
+		if (cmd->pid != -1)
+		{
+			status = waitpid(cmd->pid, &wstatus, 0);
+				if (status == -1)
+					perror("fork_and_execute_cmd");
+		}
 		tokens = tokens->next;
 	}
 	if (WIFEXITED(wstatus))
@@ -84,7 +103,7 @@ int	fork_and_execute_cmd(t_minishell *minishell, t_token_exe *tokens)
 			continue ;
 		}
 		if (run_if_buitins(minishell, cmd) == RETURN_FAILURE)
-			launch_child_process(cmd);
+			launch_child_process(cmd, tokens);
 		if (cmd->pid == -1 && cmd->cmd_path == NULL)
 			return (CMD_NOT_FOUND);
 		if (cmd->pid == -1)

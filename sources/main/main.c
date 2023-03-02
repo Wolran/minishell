@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:46 by vmuller           #+#    #+#             */
-/*   Updated: 2023/02/28 21:37:47 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:35:40 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,35 @@ t_sig	g_sig;
 int	main(int ac, char **av, char **env)
 {
 	t_mini		mini;
+	t_minishell	minishell;
 
 	(void)ac;
 	(void)av;
-	if (env[0] == NULL)
-		return (0);
 	ft_bzero(&mini, sizeof(t_mini));
 	set_env(&mini, env);
-	mini.export = set_export(NULL);
+	// mini.export = set_export(NULL);
 	while (mini.exit == 0)
 	{
 		ft_bzero(&g_sig, sizeof(t_sig));
 		parse(&mini);
 		if (mini.token && check_line(&mini, mini.token) && mini.exit == 0)
 		{
-			create_token_exe(mini.token, mini);
+			minishell.tokens = create_token_exe(mini.token, mini);
+			minishell.envp = mini.env;
+			if (pre_process(minishell.tokens) == RETURN_FAILURE)
+			{
+				clean_tokens_struct(minishell.tokens);
+				printf("Error pre_process\n");
+				exit(EXIT_FAILURE);
+			}
+			assign_fd(minishell.tokens);
+			execute_cmds(&minishell);
+			clean_tokens_struct(minishell.tokens);
 		}
+		free_token(mini.token);
 	}
-	free_token(mini.token);
 	ft_lstclear(&mini.env, free);
-	free_all_export(mini.export);
+	// free_all_export(mini.export);
 	return (mini.ret);
 }
 

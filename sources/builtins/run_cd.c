@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/19 01:09:39 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:51:32 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ int	cd_relative(t_minishell *minishell, char *path)
 
 int	run_cd(t_minishell *minishell, t_cmd *cmd)
 {
+	if (minishell->inside_pipe == true)
+		return (EXIT_SUCCESS);
 	if (size_double_char(cmd->cmd_args) != 2)
 		return (this_is_ub(EXIT_FAILURE));
 	if (cmd->cmd_args[1][0] == '/')

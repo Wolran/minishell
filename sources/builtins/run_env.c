@@ -6,11 +6,23 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/18 01:46:58 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:57:41 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_env_fd(char **str, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_putendl_fd(str[i], fd);
+		i++;
+	}
+}
 
 int	run_env(t_minishell *minishell, t_cmd *cmd)
 {
@@ -24,7 +36,7 @@ int	run_env(t_minishell *minishell, t_cmd *cmd)
 		printf("echo: malloc error\n");
 		return (EXIT_FAILURE);
 	}
-	print_double_char(envp);
+	print_env_fd(envp, cmd->fd_out);
 	free(envp);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/19 01:03:39 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:59:25 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	run_export(t_minishell *minishell, t_cmd *cmd)
 	int	ac;
 	int	i;
 
-	(void)minishell;
 	(void)cmd;
+	if (minishell->inside_pipe == true)
+		return (EXIT_SUCCESS);
 	ac = size_double_char(cmd->cmd_args);
 	if (ac == 1)
 		return (this_is_ub(EXIT_FAILURE));

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/18 19:52:30 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:58:14 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	run_pwd(t_minishell *minishell, t_cmd *cmd)
 			run_export_with_str(minishell, export_cmd);
 			free(export_cmd);
 		}
-		ft_putendl_fd(path, STDOUT_FILENO);
+		ft_putendl_fd(path, cmd->fd_out);
 		free(path);
 		return (EXIT_SUCCESS);
 	}

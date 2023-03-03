@@ -45,11 +45,11 @@ void	free_split(char **arg)
 
 void	free_token(t_token *token)
 {
-	t_token *tmp_node;
+	t_token	*tmp_node;
 
 	while (token)
 	{
-		free(token->str);
+		// free(token->str);
 		tmp_node = token;
 		token = token->next;
 		free(tmp_node);

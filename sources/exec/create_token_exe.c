@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:46:35 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/02 01:48:26 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:34:39 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_token_exe	*create_node_pipe(t_token **old_token)
 		free(node);
 		return (NULL);
 	}
+	free((*old_token)->str);
 	*old_token = (*old_token)->next;
 	node->content = pipe_t;
 	node->token_type = pipe_token;

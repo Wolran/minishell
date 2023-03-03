@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/03 00:34:34 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:29:04 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens)
 			close(cmd->fd_out);
 		}
 		(void)tokens;
-		// while (tokens)
-		// {
-		// 	if (tokens->token_type == pipe_token)
-		// 	{
-		// 		close(tokens->content.fd[0]);
-		// 	}
-		// }
+		while (tokens)
+		{
+			if (tokens->token_type == pipe_token)
+			{
+				close(((t_pipe *)tokens->content)->fd[PIPE_READ]);
+				close(((t_pipe *)tokens->content)->fd[PIPE_WRITE]);
+			}
+			tokens = tokens->next;
+		}
 		if (cmd->cmd_path == NULL)
 			cmd->pid = -1;
 		else

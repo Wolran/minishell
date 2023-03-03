@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/03 01:29:04 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:50:51 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,19 @@ int	handle_list_cmd(t_minishell *minishell)
 	return (return_code);
 }
 
+t_bool	is_with_pipe(t_token_exe *tokens)
+{
+	while (tokens)
+	{
+		if (tokens->token_type == pipe_token)
+			return (true);
+		tokens = tokens->next;
+	}
+	return (false);
+}
+
 int	execute_cmds(t_minishell *minishell)
 {
+	minishell->inside_pipe = is_with_pipe(minishell->tokens);
 	return (handle_list_cmd(minishell));
 }

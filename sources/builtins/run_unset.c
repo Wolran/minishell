@@ -6,13 +6,11 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/03 22:58:52 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:59:45 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Todo: should do nothing if in pipe
 
 void	del_node(t_minishell *minishell, t_list	*node, t_list *previous_node)
 {

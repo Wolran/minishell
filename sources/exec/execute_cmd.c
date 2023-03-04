@@ -6,13 +6,13 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/03 22:50:51 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 00:49:35 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens)
+int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens, t_minishell *minishell)
 {
 	cmd->pid = fork();
 	// printf("pid : %i\n", cmd->pid);
@@ -46,6 +46,7 @@ int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens)
 		else
 		{
 			cmd->pid = execve(cmd->cmd_path, cmd->cmd_args, cmd->envp);
+			minishell->return_code = EXIT_FAILURE;
 			ft_putstr_fd("bash : ", STDERR_FILENO);
 			ft_putstr_fd(cmd->cmd_path, STDERR_FILENO);
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -61,13 +62,11 @@ int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens)
 	return (RETURN_SUCCESS);
 }
 
-int	wait_for_child(t_token_exe *tokens)
+void	wait_for_child(t_token_exe *tokens, t_minishell *minishell)
 {
 	int		wstatus;
-	pid_t	status;
 	t_cmd	*cmd;
 
-	wstatus = 0;
 	while (tokens && tokens->token_type != list_cmd)
 	{
 		cmd = tokens->content;
@@ -76,21 +75,21 @@ int	wait_for_child(t_token_exe *tokens)
 			tokens = tokens->next;
 			continue ;
 		}
-		if (cmd->pid != -1)
+		if (cmd->pid != -1 && is_buitins(((t_cmd *)tokens->content)->cmd_name) == false)
 		{
-			status = waitpid(cmd->pid, &wstatus, 0);
-				if (status == -1)
-					perror("fork_and_execute_cmd");
+			wstatus = 0;
+			if (waitpid(cmd->pid, &wstatus, 0) == -1)
+				perror("fork_and_execute_cmd");
+			if (WIFEXITED(wstatus))
+				minishell->return_code = WEXITSTATUS(wstatus);
+			else
+				minishell->return_code = EXIT_FAILURE;
 		}
 		tokens = tokens->next;
 	}
-	if (WIFEXITED(wstatus))
-		return (WEXITSTATUS(wstatus));
-	else
-		return (EXIT_FAILURE);
 }
 
-int	fork_and_execute_cmd(t_minishell *minishell, t_token_exe *tokens)
+void	fork_and_execute_cmd(t_minishell *minishell, t_token_exe *tokens)
 {
 	t_cmd		*cmd;
 	t_token_exe	*first_node;
@@ -105,34 +104,31 @@ int	fork_and_execute_cmd(t_minishell *minishell, t_token_exe *tokens)
 			continue ;
 		}
 		if (run_if_buitins(minishell, cmd) == RETURN_FAILURE)
-			launch_child_process(cmd, tokens);
+			launch_child_process(cmd, tokens, minishell);
 		if (cmd->pid == -1 && cmd->cmd_path == NULL)
-			return (CMD_NOT_FOUND);
+			minishell->return_code = CMD_NOT_FOUND;
 		if (cmd->pid == -1)
-			return (EXIT_FAILURE);
+			minishell->return_code = EXIT_FAILURE;
 		tokens = tokens->next;
 	}
-	return (wait_for_child(first_node));
+	wait_for_child(first_node, minishell);
 }
 
-int	handle_list_cmd(t_minishell *minishell)
+void	handle_list_cmd(t_minishell *minishell)
 {
-	int			return_code;
 	t_token_exe	*tokens;
 
 	tokens = minishell->tokens;
-	return_code = RETURN_FAILURE;
 	while (tokens)
 	{
 		if (tokens->token_type == list_cmd)
 			tokens = tokens->next;
 		if (!tokens)
-			return (RETURN_SUCCESS);
-		return_code = fork_and_execute_cmd(minishell, tokens);
+			return ;
+		fork_and_execute_cmd(minishell, tokens);
 		while (tokens && tokens->token_type != list_cmd)
 			tokens = tokens->next;
 	}
-	return (return_code);
 }
 
 t_bool	is_with_pipe(t_token_exe *tokens)
@@ -146,8 +142,8 @@ t_bool	is_with_pipe(t_token_exe *tokens)
 	return (false);
 }
 
-int	execute_cmds(t_minishell *minishell)
+void	execute_cmds(t_minishell *minishell)
 {
 	minishell->inside_pipe = is_with_pipe(minishell->tokens);
-	return (handle_list_cmd(minishell));
+	handle_list_cmd(minishell);
 }

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/02 23:39:23 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 01:29:41 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+# define ACCEPT_C_ARGS 1
+# define ACCEPT_CMD_LIST 1
 
 # define PROMPT "\033[0;32m\033[1mShell : \033[0m"
 
@@ -73,6 +76,7 @@ typedef struct s_minishell
 {
 	t_token_exe			*tokens;
 	t_list				*envp;
+	char				**envp_char;
 	int					return_code;
 	t_bool				inside_pipe;
 	int					exit;
@@ -104,7 +108,7 @@ struct s_expand
 /* PARSER FUNCTIONS */
 void					sig_int(int a);
 void					sig_quit(int a);
-void					parse(t_mini *mini);
+void					parse(t_mini *mini, char *line);
 int						check_quote(t_mini *mini, char *line);
 int						quote(char *line, int nb);
 int						check_line(t_mini *mini, t_token *token);
@@ -180,13 +184,14 @@ void					clean_tokens_struct(t_token_exe *tokens);
 /* EXEC */
 
 /* CREATE_TOKEN_EXE */
-t_token_exe				*create_token_exe(t_token *old_tokens, t_mini mini);
+t_token_exe				*create_token_exe(t_token *old_tokens, t_mini mini,
+							t_minishell minishell);
 
 /* ASSIGN_FD */
 void					assign_fd(t_token_exe *tokens);
 
 /* EXECUTE_CMD */
-int						execute_cmds(t_minishell *minishell);
+void					execute_cmds(t_minishell *minishell);
 
 /* GET_PATH_CMD */
 int						get_path_of_cmd(char *cmd_name, char **envp,

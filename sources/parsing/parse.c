@@ -71,15 +71,15 @@ void	parse3(t_mini *mini, char *line, t_token *token)
 	}
 }
 
-void	parse(t_mini *mini)
+void	parse(t_mini *mini, char *line)
 {
-	char		*line;
 	t_token		*token;
 
 	token = NULL;
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
-	line = readline(PROMPT);
+	if (line == NULL)
+		line = readline(PROMPT);
 	if (!line)
 	{
 		ft_strdel(&line);

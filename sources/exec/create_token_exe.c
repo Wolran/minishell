@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:46:35 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/03 01:34:39 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 01:31:40 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,11 @@ char	**get_args_node_cmd(t_token **old_token, int *nbr_args)
 	return (cmd_args);
 }
 
-t_token_exe	*create_node_cmd(t_token **old_token, t_mini mini)
+t_token_exe	*create_node_cmd(t_token **old_token, t_minishell minishell)
 {
 	t_token_exe	*node;
 	t_cmd		*content;
 
-	(void)mini;
 	node = malloc(sizeof(*node));
 	if (node == NULL)
 		return (NULL);
@@ -87,9 +86,7 @@ t_token_exe	*create_node_cmd(t_token **old_token, t_mini mini)
 	content->cmd_args = get_args_node_cmd(old_token, &(content->nbr_args));
 	if (content->cmd_args == NULL)
 		return (NULL);
-	content->envp = convert_env_to_char(mini.env);
-	if (content->envp == NULL)
-		return (NULL);
+	content->envp = minishell.envp_char;
 	content->cmd_path = NULL;
 	content->fd_in = -1;
 	content->fd_out = -1;
@@ -119,26 +116,44 @@ t_token_exe	*create_node_pipe(t_token **old_token)
 	return (node);
 }
 
-t_token_exe	*create_node(t_token **old_token, t_mini mini)
+t_token_exe	*create_node_cmd_list(t_token **old_token)
+{
+	t_token_exe	*node;
+
+	node = malloc(sizeof(*node));
+	if (node == NULL)
+		return (NULL);
+	node->content = NULL;
+	node->token_type = list_cmd;
+	free((*old_token)->str);
+	*old_token = (*old_token)->next;
+	return (node);
+}
+
+t_token_exe	*create_node(t_token **old_token, t_minishell minishell)
 {
 	if ((*old_token)->type == CMD)
-		return (create_node_cmd(old_token, mini));
+		return (create_node_cmd(old_token, minishell));
 	else if ((*old_token)->type == PIPE)
 		return (create_node_pipe(old_token));
+	else if ((*old_token)->type == END)
+		return (create_node_cmd_list(old_token));
 	else
 		return (NULL);
 }
 
-t_token_exe	*create_token_exe(t_token *old_tokens, t_mini mini)
+t_token_exe	*create_token_exe(t_token *old_tokens, t_mini mini, t_minishell minishell)
 {
 	t_token_exe	*tokens;
 	t_token_exe	*node;
 	t_cmd		*cmd;
+
 	tokens = NULL;
-	print_token(old_tokens, mini);
+	(void)mini;
+	//print_token(old_tokens, mini);
 	while (old_tokens)
 	{
-		node = create_node(&old_tokens, mini);
+		node = create_node(&old_tokens, minishell);
 		if (node == NULL)
 			return (NULL);
 		cmd = node->content;

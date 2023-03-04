@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 02:08:55 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/03 22:59:25 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 01:25:49 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ int	run_export(t_minishell *minishell, t_cmd *cmd)
 		}
 		run_export_with_str(minishell, cmd->cmd_args[i]);
 		i++;
+	}
+	ft_free_double_ptr(minishell->envp_char);
+	minishell->envp_char = convert_env_to_char(minishell->envp); //Todo: check what happen when envp is empty
+	if (minishell->envp_char == NULL)
+	{
+		minishell->exit = true;
+		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:41:05 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:38:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*env_value(char *env)
 
 	size_alloc = env_value_len(env) + 1;
 	env_value = malloc(sizeof(char) * size_alloc);
+	if (env_value == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	i = 0;
 	while (env[i] && env[i] != '=')
 		i++;
@@ -72,6 +74,8 @@ char	*get_env_value(char *arg, t_env *env)
 	char	*env_val;
 
 	env_val = ft_strdup("");
+	if (env_val == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	while (env && env->value)
 	{
 		name_env(env_name, env->value);

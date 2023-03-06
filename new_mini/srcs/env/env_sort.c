@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_sort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:41:05 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:38:57 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	show_env(t_env *env, t_env *export)
 
 	str_env = env_on_str(env);
 	tabe = ft_split(str_env, '\n');
+	if (tabe == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	ft_memdel(str_env);
 	sort_env(tabe, ft_strarraylen(tabe));
 	i = 0;

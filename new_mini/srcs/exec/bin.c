@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:41:05 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:40:09 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	error_message(char *path)
 	fd = open(path, O_WRONLY);
 	folder = opendir(path);
 	ft_putstr_fd("minishell: ", STDERR);
-	ft_putstr_fd(path, STDERR);
 	if (ft_strchr(path, '/') == NULL)
 		ft_putendl_fd(": command not found", STDERR);
 	else if (fd == -1 && folder == NULL)
@@ -30,6 +29,7 @@ int	error_message(char *path)
 		ft_putendl_fd(": is a directory", STDERR);
 	else if (fd != -1 && folder == NULL)
 		ft_putendl_fd(": Permission denied", STDERR);
+	ft_putstr_fd(path, STDERR);
 	if (ft_strchr(path, '/') == NULL || (fd == -1 && folder == NULL))
 		ret = 127;
 	else
@@ -52,6 +52,8 @@ int	child(char *path, char **args, t_mini *mini, t_env *env)
 	{
 		tmp = env_on_str(env);
 		env_array = ft_split(tmp, '\n');
+		if (env_array == NULL)
+			exit(perror_return("", EXIT_FAILURE));
 		ft_memdel(tmp);
 		if (ft_strchr(path, '/'))
 			execve(path, args, env_array);
@@ -74,7 +76,11 @@ char	*path_join(const char *s1, const char *s2)
 	char	*path;
 
 	tmp = ft_strjoin(s1, "/");
+	if (tmp == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	path = ft_strjoin(tmp, s2);
+	if (path == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	ft_memdel(tmp);
 	return (path);
 }
@@ -116,6 +122,8 @@ int	exec_bin(char **args, t_mini *mini, t_env *env)
 	if (env == NULL || env->next == NULL)
 		return (child(args[0], args, mini, env));
 	bin = ft_split(env->value, ':');
+	if (bin == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	if (!args[0] && !bin[0])
 		return (1);
 	path = check_dir(bin[0] + 5, args[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:15 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 13:04:04 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/07 00:45:30 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,16 @@ static char	*malloc_lim(char *line)
 		i++;
 	}
 	new = malloc(sizeof(char) * (i + 2 * count + 1));
+	if (new == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	return (new);
 }
 
 char	*line2(char *line, char *test, int i, int j)
 {
 	test = malloc(sizeof(char) + (ft_strlen(line) - 1));
+	if (test == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	while (line[i])
 		test[j++] = line[i++];
 	test[j++] = '=';

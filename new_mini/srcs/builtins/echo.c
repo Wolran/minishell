@@ -3,33 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:41:06 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/07 00:55:07 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// int	check_echo(char *line)
+// {
+// 	char	*echo;
+// 	int		k;
+
+// 	k = 0;
+// 	echo = malloc(ft_atoi(line));
+// 	while (line[k] != ' ' && line[k] != '\0')
+// 	{
+// 		echo[k] = line[k];
+// 		k++;
+// 	}
+// 	if (!ft_strcmp(echo, "echo"))
+// 	{
+// 		free(echo);
+// 		return (0);
+// 	}
+// 	free(echo);
+// 	return (1);
+// }
+
 int	check_echo(char *line)
 {
-	char	*echo;
-	int		k;
+	int	i;
 
-	k = 0;
-	echo = malloc(ft_atoi(line));
-	while (line[k] != ' ' && line[k] != '\0')
-	{
-		echo[k] = line[k];
-		k++;
-	}
-	if (!ft_strcmp(echo, "echo"))
-	{
-		free(echo);
+	i = 0;
+	while (line[i] != ' ' && line[i] != '\0')
+		i++;
+	if (!ft_strncmp(line, "echo", i))
 		return (0);
-	}
-	free(echo);
 	return (1);
 }
 

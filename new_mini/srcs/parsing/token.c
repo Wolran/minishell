@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 13:18:35 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:46:30 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ t_token	*next_token(char *line, int *i)
 	j = 0;
 	c = ' ';
 	token = malloc(sizeof(t_token));
+	if (token == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	token->str = malloc(sizeof(char) * token_mal(line, i) + 1);
+	if (token->str == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
 		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"') && !tk(line, *i))

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 22:51:04 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:35:29 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,4 +237,6 @@ void			open_chev(t_mini *mini, t_token *token);
 int				pipee(t_mini *mini);
 char			*expansion(char *arg, t_env *env, int ret);
 
+/* UTILS */
+int				perror_return(char *str, int return_code);
 #endif

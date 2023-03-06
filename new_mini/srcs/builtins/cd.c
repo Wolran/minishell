@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:55:43 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:18:08 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 static void	show_error(char **args)
 {
 	ft_putstr_fd("cd: ", STDERR);
+	ft_putstr_fd(args[1], STDERR);
 	if (args[2])
-		ft_putstr_fd("string not in pwd: ", STDERR);
+		ft_putendl_fd(": string not in pwd", STDERR);
 	else
 	{
-		ft_putstr_fd(strerror(errno), STDERR);
 		ft_putstr_fd(": ", STDERR);
+		ft_putstr_fd(strerror(errno), STDERR);
 	}
-	ft_putendl_fd(args[1], STDERR);
 }
 
 int	update_oldpath(t_env *env)
@@ -89,7 +89,12 @@ int	mini_cd(char **args, t_env *env)
 
 	if (args[1] == NULL)
 		return (path(0, env));
-	if (ft_strcmp(args[1], "-") == 0)
+	if (ft_strcmp(args[1], ".") == 0)
+	{
+		ft_putendl_fd("Invalid argument.", STDERR_FILENO);
+		return (2);
+	}
+	else if (ft_strcmp(args[1], "-") == 0)
 	{
 		ret = path(1, env);
 		mini_pwd(env);

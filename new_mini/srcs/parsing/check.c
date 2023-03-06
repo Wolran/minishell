@@ -3,24 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:30:32 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:42:00 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ret_size(int ret)
+int	ret_size(int n)
 {
-	char	*tmp;
-	int		ret_len;
+	int	len;
 
-	tmp = ft_itoa(ret);
-	ret_len = ft_strlen(tmp);
-	ft_memdel(tmp);
-	return (ret_len);
+	len = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+		len++;
+	while (n)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
 }
 
 int	get_arg_len(int pos, char *arg, t_env *env, int ret)

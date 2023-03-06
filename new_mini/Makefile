@@ -75,6 +75,7 @@ SRC_FILE=	\
 			utils/free.c \
 			utils/node.c \
 			utils/type.c \
+			utils/utils.c \
 
 #			main.c \
 

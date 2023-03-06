@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:41:05 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:38:01 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*env_on_str(t_env *env)
 
 	i = 0;
 	env1 = malloc(sizeof(char) * env_size(env) + 1);
+	if (env1 == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	while (env && env->next)
 	{
 		if (env->value)
@@ -64,14 +66,22 @@ int	set_env(t_mini *mini, char **env)
 	int		i;
 
 	env1 = malloc(sizeof(t_env));
+	if (env1 == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	env1->value = ft_strdup(env[0]);
+	if (env1->value == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	env1->next = NULL;
 	mini->env = env1;
 	i = 1;
 	while (env && env[i])
 	{
 		env2 = malloc(sizeof(t_env));
+		if (env2 == NULL)
+			exit(perror_return("", EXIT_FAILURE));
 		env2->value = ft_strdup(env[i]);
+		if (env2->value == NULL)
+			exit(perror_return("", EXIT_FAILURE));
 		env2->next = NULL;
 		env1->next = env2;
 		env1 = env2;
@@ -85,10 +95,16 @@ t_env	*set_export(char *value)
 	t_env	*new_export;
 
 	new_export = malloc(sizeof(t_env));
+	if (new_export == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	if (value == NULL)
 		new_export->value = NULL;
 	else
+	{
 		new_export->value = ft_strdup(value);
+		if (new_export->value == NULL)
+			exit(perror_return("", EXIT_FAILURE));
+	}
 	new_export->next = NULL;
 	return (new_export);
 }
@@ -99,6 +115,8 @@ char	*check_env(char *line)
 	int		i;
 
 	replace = malloc(sizeof(char) + (ft_strlen(line) + 1));
+	if (replace == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	i = 0;
 	while (line[i])
 	{

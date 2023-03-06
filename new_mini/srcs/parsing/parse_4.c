@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:19 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:32:01 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:44:45 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static char	*echo_env(char *line, char *test, int i)
 	j = 0;
 	space = 0;
 	test = malloc(sizeof(char) + (ft_strlen(line) - 1));
+	if (test == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	while (line[k] && space != i)
 	{
 		k++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:41:05 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:42:46 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static char	*get_value(const char *arg, int pos, t_env *env, int ret)
 	if (arg[pos] == '?')
 	{
 		var_value = ft_itoa(ret);
+		if (var_value == NULL)
+			exit(perror_return("", EXIT_FAILURE));
 		return (var_value);
 	}
 	if (ft_isdigit(arg[pos]))
@@ -101,6 +103,8 @@ char	*expansion(char *arg, t_env *env, int ret)
 
 	arg_len = arg_size(arg, env, ret);
 	ex.str = malloc(sizeof(char) * arg_len + 1);
+	if (ex.str == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	ex.i = 0;
 	ex.j = 0;
 	while (ex.i < arg_len && arg[ex.j])

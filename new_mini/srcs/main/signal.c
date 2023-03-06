@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:52:03 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 23:41:01 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	sig_quit(int a)
 	char	*nbr;
 
 	nbr = ft_itoa(a);
+	if (nbr == NULL)
+		exit(perror_return("", EXIT_FAILURE));
 	if (g_sig.pid != 0)
 	{
 		ft_putstr_fd("Quit: ", STDERR);

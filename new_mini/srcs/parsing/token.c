@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:50:20 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 13:18:35 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ void	token_type(t_token *token, int sep)
 		token->type = EMPTY;
 	else if (ft_strcmp(token->str, ">") == 0 && sep == 0)
 		token->type = CHEVRON;
+	else if (ft_strcmp(token->str, "<") == 0 && sep == 0)
+		token->type = OPEN_CHEVRON;
 	else if (ft_strcmp(token->str, ">>") == 0 && sep == 0)
 		token->type = DOUBLE_CHEVRON;
 	else if (ft_strcmp(token->str, "<<") == 0 && sep == 0)
 		token->type = DOUBLE_INPUT;
-	else if (ft_strcmp(token->str, "<") == 0 && sep == 0)
-		token->type = OPEN_CHEVRON;
 	else if (ft_strcmp(token->str, ";") == 0 && sep == 0)
 		token->type = END;
 	else if (ft_strcmp(token->str, "|") == 0 && sep == 0)

@@ -14,7 +14,7 @@
 
 static void	parse2(t_token *token)
 {
-	ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
+	ft_putstr_fd("bash: syntax error near unexpected token \'", STDERR);
 	if (token->next)
 		ft_putstr_fd(token->next->str, STDERR);
 	if (!token->next)
@@ -26,15 +26,15 @@ int	check_line(t_mini *mini, t_token *token)
 {
 	while (token)
 	{
-		if (what_type(token, "CDOT") && (!token->next
-				|| what_type(token->next, "CDOEPT")))
+		if (what_type(token, "CDOT") && (!token->next \
+		|| what_type(token->next, "CDOEPT")))
 		{
 			parse2(token);
 			mini->ret = 258;
 			return (0);
 		}
-		if (what_type(token, "PE") && (!token->next
-				|| !token->prev || what_type(token->next, "CODEPT")))
+		if (what_type(token, "PE") && (!token->next \
+		|| !token->prev || what_type(token->next, "CODEPT")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(token->str, STDERR);

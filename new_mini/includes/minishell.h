@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 13:06:43 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 13:23:48 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include <readline/readline.h>
 # include <readline/rlstdc.h>
 
-# define PROMPT "\001\033[0;92m\002Minishell : \033[0m"
-# define ERROR_PROMPT "\001\033[0;93m\002Minishell : \033[0m"
+# define PROMPT "\001\033[0;92m\002Minishell : \001\033[0;39m\002"
+# define ERROR_PROMPT "\001\033[0;93m\002Minishell : \001\033[0;39m\002"
 
 # define STDIN 0
 # define STDOUT 1
@@ -50,8 +50,9 @@
 # define CHEVRON 4
 # define OPEN_CHEVRON 5
 # define DOUBLE_CHEVRON 6
-# define END 7
-# define DOUBLE_INPUT 8
+# define DOUBLE_INPUT 7
+# define END 8
+
 
 # define BUF_SIZE 4096
 # define EXPANSION -36

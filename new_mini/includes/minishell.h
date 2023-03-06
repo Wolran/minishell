@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 13:23:48 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 22:51:04 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void			sig_quit(int a);
 /*
 ** PARSING
 */
-void			parse(t_mini *mini);
+void			parse(t_mini *mini, char *line);
 int				check_quote(t_mini *mini, char *line);
 int				quote(char *line, int nb);
 int				quote2(char *line, int nb, int i);

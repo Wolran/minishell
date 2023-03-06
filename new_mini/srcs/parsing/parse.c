@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:10 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:32:01 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/06 22:50:29 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ void	parse3(t_mini *mini, char *line, t_token *token)
 	}
 }
 
-void	parse(t_mini *mini)
+void	parse(t_mini *mini, char *line)
 {
-	char		*line;
 	t_token		*token;
 
 	token = NULL;
 	signal(SIGINT, &sig_int);
 	signal(SIGQUIT, &sig_quit);
-	line = readline(test1(mini));
+	if (line == NULL)
+		line = readline(test1(mini));
 	if (!line)
 	{
 		ft_memdel(line);

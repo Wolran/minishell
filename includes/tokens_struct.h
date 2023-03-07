@@ -6,12 +6,27 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:46:31 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/02 04:07:13 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:51:49 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENS_STRUCT_H
 # define TOKENS_STRUCT_H
+
+/**
+ * @brief Enum containing all of the different sorts of token possible.
+ * 
+ */
+typedef enum e_token_type
+{
+	cmd_token,
+	pipe_token, // |
+	redirect_input, // <
+	redirect_output, // >
+	append_redirect_output, // >>
+	here_doc_token, // <<
+	list_cmd, // ;
+}							t_token_type;
 
 /**
  * @brief Structure used for commands token.
@@ -77,21 +92,6 @@ typedef struct s_here_doc
  * @brief Structure used for list_cmd tokens. Empty for the moment.
  */
 typedef void				t_list_cmd;
-
-/**
- * @brief Enum containing all of the different sorts of token possible.
- * 
- */
-typedef enum e_token_type
-{
-	cmd_token,
-	pipe_token, // |
-	redirect_input, // <
-	redirect_output, // >
-	append_redirect_output, // >>
-	here_doc_token, // <<
-	list_cmd, // ;
-}							t_token_type;
 
 typedef struct s_token_exe	t_token_exe;
 

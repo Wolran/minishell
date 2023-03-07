@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 00:16:28 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/02 02:03:29 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:56:09 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,21 @@ int	process_cmd_struct(t_token_exe *token)
 	return (RETURN_SUCCESS);
 }
 
+int	process_redirect_struct(t_token_exe *token)
+{
+	t_redirect	*content;
+
+	content = token->content;
+	content->fd = open(content->file_name, content->open_mode,
+			DEFAULT_OPEN_MODE);
+	if (content->fd == -1)
+	{
+		perror("");
+		return (RETURN_FAILURE);
+	}
+	return (RETURN_SUCCESS);
+}
+
 int	process_each_node(t_token_exe *token)
 {
 	if (token->token_type == cmd_token)
@@ -66,6 +81,9 @@ int	process_each_node(t_token_exe *token)
 		return (process_pipe_struct(token));
 	else if (token->token_type == list_cmd)
 		return (RETURN_SUCCESS);
+	else if (token->token_type == redirect_input || token->token_type
+		== redirect_output || token->token_type == append_redirect_output)
+		return (process_redirect_struct(token));
 	else
 	{
 		ft_putendl_fd("Invalid token", STDERR_FILENO);

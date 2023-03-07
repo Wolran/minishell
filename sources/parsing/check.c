@@ -35,27 +35,30 @@
 
 char	*echo_test(char *line, int k, int j, char *test)
 {
-	while (line[k])
-	{
-		if (line[k] == '$')
-		{
-			if (line[k + 1] != '$')
-			{
-				if (quote_check(line, k) == 0)
-					return (test);
-				else
-				{
-					k++;
-					while (line[k] != ' ' && ft_isalnum(line[k]))
-						test[j++] = line[k++];
-					test[j++] = '=';
-					test[j] = '\0';
-					return (test);
-				}
-			}
-		}
-		k++;
-	}
+	(void)k;
+	(void)j;
+	(void)line;
+	// while (line[k])
+	// {
+	// 	if (line[k] == '$')
+	// 	{
+	// 		if (line[k + 1] != '$')
+	// 		{
+	// 			if (quote_check(line, k) == 0)
+	// 				return (test);
+	// 			else
+	// 			{
+	// 				k++;
+	// 				while (line[k] != ' ' && ft_isalnum(line[k]))
+	// 					test[j++] = line[k++];
+	// 				test[j++] = '=';
+	// 				test[j] = '\0';
+	// 				return (test);
+	// 			}
+	// 		}
+	// 	}
+	// 	k++;
+	// }
 	return (test);
 }
 

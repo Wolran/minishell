@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:46 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/04 01:30:32 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:13:14 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	parse_execute(t_mini *mini, t_minishell *minishell, char *line)
 	if (mini->token && check_line(mini, mini->token) && mini->exit == 0)
 	{
 		minishell->tokens = create_token_exe(mini->token, *mini, *minishell);
-		minishell->envp = mini->env;
+		if (minishell->tokens == NULL)
+		{
+			mini->exit = true;
+			return ;
+		}
 		if (pre_process(minishell->tokens) == RETURN_FAILURE)
 		{
 			clean_tokens_struct(minishell->tokens);
@@ -43,9 +47,11 @@ int	main(int ac, char **av, char **env)
 	char		**input;
 
 	ft_bzero(&mini, sizeof(t_mini));
-	set_env(&mini, env);
+	//set_env(&mini, env);
 	minishell.envp_char = env;
-	minishell.envp = mini.env;
+	minishell.envp = convert_env_to_list(env);
+	mini.env = minishell.envp;
+	minishell.return_code = 0;
 	// mini.export = set_export(NULL);
 	if (ACCEPT_C_ARGS && ac == 3 && ft_strcmp(av[1], "-c") == 0 && av[2])
 	{

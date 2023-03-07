@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 22:31:10 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/04 00:49:35 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:40:36 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens, t_minishell *minishell
 			minishell->return_code = EXIT_FAILURE;
 			ft_putstr_fd("bash : ", STDERR_FILENO);
 			ft_putstr_fd(cmd->cmd_path, STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		}
 	}
@@ -61,6 +62,70 @@ int	launch_child_process(t_cmd	*cmd, t_token_exe *tokens, t_minishell *minishell
 	}
 	return (RETURN_SUCCESS);
 }
+
+// void	wait_for_child(t_token_exe *tokens, t_minishell *minishell)
+// {
+// 	int		wstatus;
+// 	t_cmd	*cmd;
+
+// 	while (tokens && tokens->token_type != list_cmd)
+// 	{
+// 		cmd = tokens->content;
+// 		if (cmd->pid == IS_BUILTIN)
+// 		{
+// 			minishell->return_code = cmd->return_code;
+// 			tokens = tokens->next;
+// 		}
+// 		if (tokens->token_type != cmd_token)
+// 		{
+// 			tokens = tokens->next;
+// 			continue ;
+// 		}
+// 		if (cmd->pid != -1)
+// 		{
+// 			wstatus = 0;
+// 			if (cmd->pid == -1 && cmd->cmd_path == NULL)
+// 				minishell->return_code = CMD_NOT_FOUND;
+// 			else
+// 			{
+// 				if (waitpid(cmd->pid, &wstatus, 0) == -1)
+// 					perror("fork_and_execute_cmd");
+// 				if (WIFEXITED(wstatus))
+// 					minishell->return_code = WEXITSTATUS(wstatus);
+// 				else
+// 					minishell->return_code = EXIT_FAILURE;
+// 			}
+// 		}
+// 		tokens = tokens->next;
+// 	}
+// }
+
+// void	fork_and_execute_cmd(t_minishell *minishell, t_token_exe *tokens)
+// {
+// 	t_cmd		*cmd;
+// 	t_token_exe	*first_node;
+
+// 	first_node = tokens;
+// 	while (tokens && tokens->token_type != list_cmd && cmd->pid != 0)
+// 	{
+// 		cmd = tokens->content;
+// 		cmd->pid = 0;
+// 		if (tokens->token_type != cmd_token)
+// 		{
+// 			tokens = tokens->next;
+// 			continue ;
+// 		}
+// 		if (run_if_buitins(minishell, cmd) == RETURN_FAILURE)
+// 			launch_child_process(cmd, tokens, minishell);
+// 		if (cmd->pid == -1 && cmd->cmd_path == NULL)
+// 			minishell->return_code = CMD_NOT_FOUND;
+// 		else if (cmd->pid == -1)
+// 			minishell->return_code = EXIT_FAILURE;
+// 		tokens = tokens->next;
+// 	}
+// 	if (cmd->pid != 0)
+// 		wait_for_child(first_node, minishell);
+// }
 
 void	wait_for_child(t_token_exe *tokens, t_minishell *minishell)
 {
@@ -111,7 +176,8 @@ void	fork_and_execute_cmd(t_minishell *minishell, t_token_exe *tokens)
 			minishell->return_code = EXIT_FAILURE;
 		tokens = tokens->next;
 	}
-	wait_for_child(first_node, minishell);
+	if (cmd->pid != 0)
+		wait_for_child(first_node, minishell);
 }
 
 void	handle_list_cmd(t_minishell *minishell)

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 15:46:35 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/04 01:31:40 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:31:04 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void	print_token(t_token *old_tokens, t_mini mini)
 {
 	char	*str;
 
+	(void)mini;
 	while (old_tokens)
 	{
-		str = ft_expand(old_tokens->str, mini.env, 1);
+		// str = ft_expand(old_tokens->str, mini.env, 1);
+		str = old_tokens->str;
 		printf("%i, %s\n", old_tokens->type, str);
 		old_tokens = old_tokens->next;
-		free(str);
+		// free(str);
 	}
 }
 
@@ -130,6 +132,48 @@ t_token_exe	*create_node_cmd_list(t_token **old_token)
 	return (node);
 }
 
+void	get_open_mode_and_token_type(t_token_exe *node, int old_token_type)
+{
+	if (old_token_type == OPEN_CHEVRON)
+	{
+		node->token_type = redirect_input;
+		((t_redirect *)node->content)->open_mode = O_RDONLY;
+	}
+	else if (old_token_type == CHEVRON)
+	{
+		node->token_type = redirect_output;
+		((t_redirect *)node->content)->open_mode = O_WRONLY | O_CREAT | O_TRUNC;
+	}
+	else if (old_token_type == DOUBLE_CHEVRON)
+	{
+		node->token_type = append_redirect_output;
+		((t_redirect *)node->content)->open_mode = O_WRONLY | O_CREAT
+			| O_APPEND;
+	}
+}
+
+t_token_exe	*create_node_redirect(t_token **old_token)
+{
+	t_token_exe	*node;
+	t_redirect	*content;
+
+	node = malloc(sizeof(*node));
+	if (node == NULL)
+		return (NULL);
+	content = malloc(sizeof(*content));
+	if (content == NULL)
+	{
+		free(node);
+		return (NULL);
+	}
+	node->content = content;
+	get_open_mode_and_token_type(node, (*old_token)->type);
+	*old_token = (*old_token)->next;
+	content->file_name = (*old_token)->str;
+	*old_token = (*old_token)->next;
+	return (node);
+}
+
 t_token_exe	*create_node(t_token **old_token, t_minishell minishell)
 {
 	if ((*old_token)->type == CMD)
@@ -138,6 +182,10 @@ t_token_exe	*create_node(t_token **old_token, t_minishell minishell)
 		return (create_node_pipe(old_token));
 	else if ((*old_token)->type == END)
 		return (create_node_cmd_list(old_token));
+	else if ((*old_token)->type == OPEN_CHEVRON
+		|| (*old_token)->type == CHEVRON || (*old_token)->type
+		== DOUBLE_CHEVRON)
+		return (create_node_redirect(old_token));
 	else
 		return (NULL);
 }
@@ -150,7 +198,7 @@ t_token_exe	*create_token_exe(t_token *old_tokens, t_mini mini, t_minishell mini
 
 	tokens = NULL;
 	(void)mini;
-	//print_token(old_tokens, mini);
+	// print_token(old_tokens, mini);
 	while (old_tokens)
 	{
 		node = create_node(&old_tokens, minishell);

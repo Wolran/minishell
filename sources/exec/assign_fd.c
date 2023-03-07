@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 01:09:54 by troberts          #+#    #+#             */
-/*   Updated: 2023/02/14 01:33:41 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:04:01 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	assign_fd_to_cmd_output(t_token_exe *token)
 		pipe = token->next->content;
 		cmd->fd_out = pipe->fd[PIPE_WRITE];
 	}
-	else if (token->next->token_type == redirect_output)
+	else if (token->next->token_type == redirect_output
+		|| token->next->token_type == append_redirect_output)
 	{
 		redirect = token->next->content;
 		cmd->fd_out = redirect->fd;

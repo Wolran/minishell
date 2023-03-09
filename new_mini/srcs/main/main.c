@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 19:19:37 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:44:15 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	main(int ac, char **av, char **env)
 		parse(&mini, NULL);
 		if (mini.token && check_line(&mini, mini.token) && mini.exit == 0)
 			start(&mini);
-		
 	}
 	free_token(mini.token);
 	free_env(mini.env);

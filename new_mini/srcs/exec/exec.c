@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 23:40:36 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:38:40 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,11 @@ char	**cmd_array(t_token *token)
 	return (array);
 }
 
-void	print_token(t_token *old_tokens, t_mini mini)
-{
-	char	*str;
-
-	(void)mini;
-	while (old_tokens)
-	{
-		// str = ft_expand(old_tokens->str, mini.env, 1);
-		str = old_tokens->str;
-		printf("%i, %s\n", old_tokens->type, str);
-		old_tokens = old_tokens->next;
-		// free(str);
-	}
-}
-
 void	exec_cmd(t_mini *mini, t_token *token)
 {
 	char	**cmd;
 	int		i;
 
-	// print_token(token, *mini);
 	if (mini->charge == 0)
 		return ;
 	cmd = cmd_array(token);

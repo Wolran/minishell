@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 23:42:46 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:23:39 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ char	*expansion(char *arg, t_env *env, int ret)
 		while (arg[ex.j] == EXPANSION)
 		{
 			ex.j++;
-			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0)
-				&& arg[ex.j] != '?')
+			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0) \
+			&& arg[ex.j] != '?')
 				ex.str[ex.i++] = '$';
 			else
 				inser_var(&ex, arg, env, ret);

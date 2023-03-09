@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:10 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 22:50:29 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:28:58 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_line(t_mini *mini, t_token *token)
 		if (what_type(token, "PE") && (!token->next \
 		|| !token->prev || what_type(token->next, "CODEPT")))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
+			ft_putstr_fd("bash: syntax error near unexpected token \'", STDERR);
 			ft_putstr_fd(token->str, STDERR);
 			ft_putendl_fd("\'", STDERR);
 			mini->ret = 258;

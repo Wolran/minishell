@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:51 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:32:28 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/09 19:13:06 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ void	free_token(t_token *token)
 {
 	while (token && token->next)
 	{
-		ft_memdel(token->str);
+		if (token->str)
+			free(token->str);
 		token = token->next;
-		ft_memdel(token->prev);
+		free(token->prev);
 	}
 	if (token)
 	{
-		ft_memdel(token->str);
-		ft_memdel(token);
+		if (token->str)
+			free(token->str);
+		free(token);
 	}
 }

@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/07 00:55:07 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:33:05 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	check_echo(char *line)
-// {
-// 	char	*echo;
-// 	int		k;
-
-// 	k = 0;
-// 	echo = malloc(ft_atoi(line));
-// 	while (line[k] != ' ' && line[k] != '\0')
-// 	{
-// 		echo[k] = line[k];
-// 		k++;
-// 	}
-// 	if (!ft_strcmp(echo, "echo"))
-// 	{
-// 		free(echo);
-// 		return (0);
-// 	}
-// 	free(echo);
-// 	return (1);
-// }
 
 int	check_echo(char *line)
 {

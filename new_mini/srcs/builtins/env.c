@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/05 12:41:06 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/09 17:34:04 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ char	*name_env(char *dest, char *src)
 	int	i;
 
 	i = 0;
-	while (src[i] && src[i] != '=' && ft_strlen(src) < BUF_SIZE
-		&& src[i] != ' ')
+	while (src[i] && src[i] != '=' && ft_strlen(src) < BUF_SIZE \
+	&& src[i] != ' ')
 	{
 		dest[i] = src[i];
 		i++;

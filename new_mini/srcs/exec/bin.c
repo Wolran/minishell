@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 23:40:09 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:20:30 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	error_message(char *path)
 
 	fd = open(path, O_WRONLY);
 	folder = opendir(path);
-	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd("minishell", STDERR);
 	if (ft_strchr(path, '/') == NULL)
 		ft_putendl_fd(": command not found", STDERR);
 	else if (fd == -1 && folder == NULL)

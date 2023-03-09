@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 23:46:30 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:56:03 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ void	token_type(t_token *token, int sep)
 {
 	if (ft_strcmp(token->str, "") == 0)
 		token->type = EMPTY;
+	else if (ft_strcmp(token->str, "<<") == 0 && sep == 0)
+		token->type = DOUBLE_INPUT;
+	else if (ft_strcmp(token->str, ">>") == 0 && sep == 0)
+		token->type = DOUBLE_CHEVRON;
 	else if (ft_strcmp(token->str, ">") == 0 && sep == 0)
 		token->type = CHEVRON;
 	else if (ft_strcmp(token->str, "<") == 0 && sep == 0)
 		token->type = OPEN_CHEVRON;
-	else if (ft_strcmp(token->str, ">>") == 0 && sep == 0)
-		token->type = DOUBLE_CHEVRON;
-	else if (ft_strcmp(token->str, "<<") == 0 && sep == 0)
-		token->type = DOUBLE_INPUT;
 	else if (ft_strcmp(token->str, ";") == 0 && sep == 0)
 		token->type = END;
 	else if (ft_strcmp(token->str, "|") == 0 && sep == 0)

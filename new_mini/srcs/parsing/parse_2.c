@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:15 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 16:27:44 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:00:13 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static char	*find_line2(char *new, int *j, int *i, char *line)
 		new[(*j)++] = ' ';
 	new[(*j)++] = line[(*i)++];
 	if (quote(line, *i) == 0 && line[*i] == '>')
+		new[(*j)++] = line[(*i)++];
+	if (quote(line, *i) == 0 && line[*i] == '<')
 		new[(*j)++] = line[(*i)++];
 	if (line[*i] != ' ')
 		new[(*j)++] = ' ';

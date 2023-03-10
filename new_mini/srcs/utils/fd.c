@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:59 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 23:25:41 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:56:15 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,6 @@ void	close_fd(t_mini *mini)
 	ft_close(mini->fdout);
 	ft_close(mini->pipin);
 	ft_close(mini->pipout);
+	ft_close(mini->in);
+	ft_close(mini->out);
 }

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/10 00:38:28 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/10 02:34:05 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char			*line2(char *line, char *test, int i, int j);
 char			dollar(char *line, int i, t_mini *mini);
 int				quote_check(char *line, int i);
 char			*echo_test(char *line, int k, int j, char *test);
+int				here_doc(char *limiter);
 /*
 ** TOKEN
 */

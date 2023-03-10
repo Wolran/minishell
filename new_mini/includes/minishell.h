@@ -29,7 +29,7 @@
 # include <readline/rlstdc.h>
 
 # define PROMPT "\001\033[0;92m\002Minishell : \001\033[0;39m\002"
-# define ERROR_PROMPT "\001\033[0;93m\002Minishell : \001\033[0;39m\002"
+# define ERROR_PROMPT "\001\033[0;93m\002\nMinishell : \001\033[0;39m\002"
 
 # define STDIN 0
 # define STDOUT 1

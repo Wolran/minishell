@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 23:35:29 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:38:28 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,4 +239,6 @@ char			*expansion(char *arg, t_env *env, int ret);
 
 /* UTILS */
 int				perror_return(char *str, int return_code);
+void			clean_minishell(t_mini *mini);
+void			clean_child(char *path, char **args, t_mini *mini, t_env *env);
 #endif

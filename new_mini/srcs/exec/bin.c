@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 20:20:30 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/10 02:21:14 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int	child(char *path, char **args, t_mini *mini, t_env *env)
 	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
+		// int fd = open("log.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
+		// write(fd, "bin child\n", 10);
+		// close(fd);
 		tmp = env_on_str(env);
 		env_array = ft_split(tmp, '\n');
 		if (env_array == NULL)
@@ -59,7 +62,7 @@ int	child(char *path, char **args, t_mini *mini, t_env *env)
 			execve(path, args, env_array);
 		ret = error_message(path);
 		free_array(env_array);
-		free_token(mini->token);
+		clean_child(path, args, mini, env);
 		exit(ret);
 	}
 	else
@@ -130,11 +133,11 @@ int	exec_bin(char **args, t_mini *mini, t_env *env)
 	i = 1;
 	while (args[0] && bin[i] && path == NULL)
 		path = check_dir(bin[i++], args[0]);
+	free_array(bin);
 	if (path)
 		ret = child(path, args, mini, env);
 	else
 		ret = child(args[0], args, mini, env);
-	free_array(bin);
 	ft_memdel(path);
 	return (ret);
 }

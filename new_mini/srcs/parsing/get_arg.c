@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/10 02:21:05 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:15:54 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,6 @@ int	pipee(t_mini *mini)
 	pid = fork();
 	if (pid == 0)
 	{
-		// int fd = open("log.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
-		// write(fd, "pipe child\n", 11);
-		// close(fd);
 		ft_close(pipefd[1]);
 		dup2(pipefd[0], STDIN);
 		mini->pipin = pipefd[0];

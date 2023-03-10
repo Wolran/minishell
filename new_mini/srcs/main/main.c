@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/10 01:50:48 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:44:15 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	test(t_mini *mini)
 {
 	if (mini->parent == 0)
 	{
-		clean_minishell(mini);
+		free_token(mini->token);
 		exit(mini->ret);
 	}
 	mini->no_run = 0;
@@ -114,7 +114,8 @@ int	main(int ac, char **av, char **env)
 		if (mini.token && check_line(&mini, mini.token) && mini.exit == 0)
 			start(&mini);
 	}
-	clean_minishell(&mini);
+	free_token(mini.token);
+	free_env(mini.env);
 	free_all_export(mini.export);
 	return (mini.ret);
 }

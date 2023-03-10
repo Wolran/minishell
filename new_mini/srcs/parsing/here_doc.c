@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:31:30 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/10 02:33:06 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:11:20 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ int	here_doc(char *limiter)
 	else
 		ft_putstr_fd(input_heredoc, here_doc_fd);
 	free(input_heredoc);
-	return(here_doc_fd);
+	return (here_doc_fd);
 }

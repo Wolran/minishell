@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 23:33:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/10 16:58:29 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/10 18:13:17 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	perror_return(char *str, int return_code)
 
 void	clean_minishell(t_mini *mini)
 {
+	ft_close(mini->in);
+	ft_close(mini->out);
 	close_fd(mini);
 	close(STDIN);
 	close(STDOUT);
@@ -31,7 +33,7 @@ void	clean_minishell(t_mini *mini)
 void	clean_child(char *path, char **args, t_mini *mini, t_env *env)
 {
 	int i;
-	
+
 	i = 0;
 	(void)env;
 	(void)args;

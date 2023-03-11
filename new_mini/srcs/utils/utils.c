@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 23:33:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/10 01:49:04 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/10 18:13:17 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,18 @@ void	clean_minishell(t_mini *mini)
 
 void	clean_child(char *path, char **args, t_mini *mini, t_env *env)
 {
+	int i;
+
+	i = 0;
 	(void)env;
 	(void)args;
 	clean_minishell(mini);
-	ft_memdel(path);
-	free(args);
+	if (path)
+		ft_memdel(path);
+	if (args)
+	{
+		while (args[i])
+			free(args[++i]);
+		free(args);
+	}
 }

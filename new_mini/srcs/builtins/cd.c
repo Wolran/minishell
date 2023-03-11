@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 23:18:08 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:17:16 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	update_path(t_env *env)
 		return (1);
 	while (ft_strncmp(env->value, "PWD=", 4) && env->next)
 		env = env->next;
+	free(env->value);
 	env->value = new;
 	return (0);
 }

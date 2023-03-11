@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:31:30 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/10 02:33:06 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:07:46 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@ char	*get_input_stdin(char *limiter)
 	while (1)
 	{
 		ft_printf("> ");
-		line = get_next_line(STDIN_FILENO);
+		line = readline(NULL);
 		if (line == NULL)
 		{
 			ft_printf("bash: warning: here-document delimited by end-of-file");
 			ft_printf(" (wanted `%s')\n", limiter);
 			return (input_stdin);
 		}
-		else if (ft_strnstr(line, limiter, len_limiter) && \
-										len_limiter == (ft_strlen(line) - 1))
+		else if (ft_strcmp(line, limiter) == 0)
 		{
 			free(line);
 			return (input_stdin);
@@ -41,19 +40,26 @@ char	*get_input_stdin(char *limiter)
 	}
 }
 
-int	here_doc(char *limiter)
+void	here_doc(t_mini *mini, t_token *token)
 {
-	int		here_doc_fd;
 	char	*input_heredoc;
 
-	here_doc_fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (here_doc_fd == -1)
-		return (-1);
-	input_heredoc = get_input_stdin(limiter);
+	ft_close(mini->fdin);
+	mini->fdin = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (mini->fdin == -1 || token->str == NULL || ft_strlen(token->str) == 0)
+	{
+		ft_putstr_fd("minishell: ", STDERR);
+		ft_putstr_fd(token->str, STDERR);
+		ft_putendl_fd(": No such file or directory", STDERR);
+		mini->ret = 1;
+		mini->no_run = 1;
+		return ;
+	}
+	input_heredoc = get_input_stdin(token->str);
 	if (input_heredoc == NULL)
-		ft_putstr_fd("", here_doc_fd);
+		ft_putstr_fd("", mini->fdin);
 	else
-		ft_putstr_fd(input_heredoc, here_doc_fd);
+		ft_putstr_fd(input_heredoc, mini->fdin);
 	free(input_heredoc);
-	return(here_doc_fd);
+	dup2(mini->fdin, STDIN);
 }

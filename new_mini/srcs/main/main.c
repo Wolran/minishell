@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/10 01:50:48 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 02:04:06 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	redir_exec(t_mini *mini, t_token *token)
 		pipe = pipee(mini);
 	else if (is_type(prev, OPEN_CHEVRON))
 		open_chev(mini, token);
+	else if (is_type(prev, DOUBLE_INPUT))
+		here_doc(mini, token);
 	if (next && is_type(next, END) == 0 && pipe != 1)
 		redir_exec(mini, next->next);
 	if ((is_type(prev, END) || is_type(prev, PIPE) || !prev)

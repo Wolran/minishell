@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 23:33:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/11 16:10:23 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 18:37:45 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	clean_minishell(t_mini *mini)
 	close(STDOUT);
 	free_token(mini->token);
 	free_env(mini->env);
-	free_all_export(mini->export);
+	free_env(mini->export);
 }
 
 void	clean_child(char *path, char **args, t_mini *mini, t_env *env)

@@ -63,6 +63,7 @@ SRC_FILE=	\
 			\
 			parsing/check.c \
 			parsing/get_arg.c \
+			parsing/here_doc.c \
 			parsing/parse_2.c \
 			parsing/parse_3.c \
 			parsing/parse_4.c \

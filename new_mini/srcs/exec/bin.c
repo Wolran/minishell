@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 15:48:11 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:34:21 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	error_message(char *path)
-{
-	DIR	*folder;
-	int	fd;
-	int	ret;
-
-	fd = open(path, O_WRONLY);
-	folder = opendir(path);
-	ft_putstr_fd("minishell", STDERR);
-	if (ft_strchr(path, '/') == NULL)
-		ft_putendl_fd(": command not found", STDERR);
-	else if (fd == -1 && folder == NULL)
-		ft_putendl_fd(": No such file or directory", STDERR);
-	else if (fd == -1 && folder != NULL)
-		ft_putendl_fd(": is a directory", STDERR);
-	else if (fd != -1 && folder == NULL)
-		ft_putendl_fd(": Permission denied", STDERR);
-	ft_putstr_fd(path, STDERR);
-	if (ft_strchr(path, '/') == NULL || (fd == -1 && folder == NULL))
-		ret = 127;
-	else
-		ret = 126;
-	if (folder)
-		closedir(folder);
-	ft_close(fd);
-	return (ret);
-}
 
 int	child(char *path, char **args, t_mini *mini, t_env *env)
 {
@@ -50,9 +22,6 @@ int	child(char *path, char **args, t_mini *mini, t_env *env)
 	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
-		// int fd = open("log.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
-		// write(fd, "bin child\n", 10);
-		// close(fd);
 		tmp = env_on_str(env);
 		env_array = ft_split(tmp, '\n');
 		if (env_array == NULL)
@@ -60,8 +29,7 @@ int	child(char *path, char **args, t_mini *mini, t_env *env)
 		ft_memdel(tmp);
 		if (ft_strchr(path, '/'))
 			execve(path, args, env_array);
-		ret = error_message(path);
-		free_array(env_array);
+		ret = free_ret_child(ret, env_array, path);
 		clean_child(path, args, mini, env);
 		exit(ret);
 	}
@@ -113,13 +81,11 @@ char	*check_dir(char *bin, char *cmd)
 
 int	exec_bin(char **args, t_mini *mini, t_env *env)
 {
-	int		i;
+	int		i[2];
 	char	**bin;
 	char	*path;
-	int		ret;
 
-	i = 0;
-	ret = 0;
+	i[1] = 0;
 	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
 		env = env->next;
 	if (env == NULL || env->next == NULL)
@@ -130,14 +96,14 @@ int	exec_bin(char **args, t_mini *mini, t_env *env)
 	if (!args[0] && !bin[0])
 		return (1);
 	path = check_dir(bin[0] + 5, args[0]);
-	i = 1;
-	while (args[0] && bin[i] && path == NULL)
-		path = check_dir(bin[i++], args[0]);
+	i[0] = 1;
+	while (args[0] && bin[i[0]] && path == NULL)
+		path = check_dir(bin[i[0]++], args[0]);
 	free_array(bin);
 	if (path)
-		ret = child(path, args, mini, env);
+		i[1] = child(path, args, mini, env);
 	else
-		ret = child(args[0], args, mini, env);
+		i[1] = child(args[0], args, mini, env);
 	ft_memdel(path);
-	return (ret);
+	return (i[1]);
 }

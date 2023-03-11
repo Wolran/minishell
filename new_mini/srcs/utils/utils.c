@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 23:33:56 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/10 18:13:17 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 16:10:23 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	clean_minishell(t_mini *mini)
 
 void	clean_child(char *path, char **args, t_mini *mini, t_env *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	(void)env;

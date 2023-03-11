@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 02:03:43 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:29:53 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@
 # define DOUBLE_CHEVRON 6
 # define DOUBLE_INPUT 7
 # define END 8
-
 
 # define BUF_SIZE 4096
 # define EXPANSION -36
@@ -165,7 +164,7 @@ int				ft_strisnum(char *str);
 */
 int				export_add(char *value, t_env *export);
 int				check_double(char *arg, t_env *export);
-int				set_env(t_mini *mini, char **env);
+void			set_env(t_mini *mini, char **env);
 t_env			*set_export(char *value);
 char			*env_on_str(t_env *env);
 void			show_env(t_env *env, t_env *export);
@@ -182,6 +181,7 @@ int				in_export(char **args, t_mini *mini, int arg_nb);
 int				compare_len(char *arg_to_cat, char *value);
 char			*name_env(char *dest, char *src);
 int				export_quotes(char **args, int arg_nb, int quotes);
+char			*env_cpy(char *env1, t_env *env);
 /*
 ** FREE
 */
@@ -205,6 +205,8 @@ void			reset_std(t_mini *mini);
 void			exec_cmd(t_mini *mini, t_token *token);
 int				exec_bin(char **args, t_mini *mini, t_env *env);
 int				child2(int ret);
+int				free_ret_child(int ret, char **env_array, char *path);
+int				error_message(char *path);
 /*
 ** BUILTINS
 */

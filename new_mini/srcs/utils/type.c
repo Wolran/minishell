@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:59 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 16:36:27 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:44:04 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,28 @@ int	what_type(t_token *token, char *type)
 	else if (ft_strchr(type, 'E') && is_type(token, END))
 		return (1);
 	return (0);
+}
+
+void	token_type(t_token *token, int sep)
+{
+	if (ft_strcmp(token->str, "") == 0)
+		token->type = EMPTY;
+	else if (ft_strcmp(token->str, "<<") == 0 && sep == 0)
+		token->type = DOUBLE_INPUT;
+	else if (ft_strcmp(token->str, ">>") == 0 && sep == 0)
+		token->type = DOUBLE_CHEVRON;
+	else if (ft_strcmp(token->str, ">") == 0 && sep == 0)
+		token->type = CHEVRON;
+	else if (ft_strcmp(token->str, "<") == 0 && sep == 0)
+		token->type = OPEN_CHEVRON;
+	else if (ft_strcmp(token->str, ";") == 0 && sep == 0)
+		token->type = END;
+	else if (ft_strcmp(token->str, "|") == 0 && sep == 0)
+		token->type = PIPE;
+	else if (token->prev == NULL || token->prev->type >= PIPE)
+		token->type = CMD;
+	else
+		token->type = ARG;
 }
 
 int	its_pipe(t_token *token)

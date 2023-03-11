@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 15:48:18 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 16:57:42 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	**token_to_array(t_token *token1, char **array)
+{
+	int	i;
+
+	i = 1;
+	while (token1 && token1->type < PIPE)
+	{
+		array[i++] = token1->str;
+		token1 = token1->next;
+	}
+	array[i] = NULL;
+	return (array);
+}
 
 char	**cmd_array(t_token *token)
 {
@@ -32,13 +46,7 @@ char	**cmd_array(t_token *token)
 		exit(perror_return("", EXIT_FAILURE));
 	token1 = token->next;
 	array[0] = token->str;
-	i = 1;
-	while (token1 && token1->type < PIPE)
-	{
-		array[i++] = token1->str;
-		token1 = token1->next;
-	}
-	array[i] = NULL;
+	array = token_to_array(token1, array);
 	return (array);
 }
 

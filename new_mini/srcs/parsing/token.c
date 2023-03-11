@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 20:41:39 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:45:00 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,19 @@ int	token_mal(char *line, int *i)
 	return (j - count + 1);
 }
 
+static t_token	*malloc_token_stat(char *line, int *i)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (token == NULL)
+		exit(perror_return("", EXIT_FAILURE));
+	token->str = malloc(sizeof(char) * token_mal(line, i) + 1);
+	if (token->str == NULL)
+		exit(perror_return("", EXIT_FAILURE));
+	return (token);
+}
+
 t_token	*next_token(char *line, int *i)
 {
 	t_token	*token;
@@ -68,12 +81,7 @@ t_token	*next_token(char *line, int *i)
 
 	j = 0;
 	c = ' ';
-	token = malloc(sizeof(t_token));
-	if (token == NULL)
-		exit(perror_return("", EXIT_FAILURE));
-	token->str = malloc(sizeof(char) * token_mal(line, i) + 1);
-	if (token->str == NULL)
-		exit(perror_return("", EXIT_FAILURE));
+	token = malloc_token_stat(line, i);
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
 		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"') && !tk(line, *i))
@@ -91,28 +99,6 @@ t_token	*next_token(char *line, int *i)
 	}
 	token->str[j] = '\0';
 	return (token);
-}
-
-void	token_type(t_token *token, int sep)
-{
-	if (ft_strcmp(token->str, "") == 0)
-		token->type = EMPTY;
-	else if (ft_strcmp(token->str, "<<") == 0 && sep == 0)
-		token->type = DOUBLE_INPUT;
-	else if (ft_strcmp(token->str, ">>") == 0 && sep == 0)
-		token->type = DOUBLE_CHEVRON;
-	else if (ft_strcmp(token->str, ">") == 0 && sep == 0)
-		token->type = CHEVRON;
-	else if (ft_strcmp(token->str, "<") == 0 && sep == 0)
-		token->type = OPEN_CHEVRON;
-	else if (ft_strcmp(token->str, ";") == 0 && sep == 0)
-		token->type = END;
-	else if (ft_strcmp(token->str, "|") == 0 && sep == 0)
-		token->type = PIPE;
-	else if (token->prev == NULL || token->prev->type >= PIPE)
-		token->type = CMD;
-	else
-		token->type = ARG;
 }
 
 t_token	*get_token(char *line)

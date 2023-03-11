@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 02:04:06 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:47:11 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	start(t_mini *mini)
 int	main(int ac, char **av, char **env)
 {
 	t_mini		mini;
-	char		**input;
-	int			i;
 
+	(void)ac;
+	(void)av;
 	if (env[0] == NULL)
 		return (0);
 	ft_bzero(&mini, sizeof(t_mini));
@@ -90,25 +90,8 @@ int	main(int ac, char **av, char **env)
 	reset_fd(&mini);
 	set_env(&mini, env);
 	mini.export = set_export(NULL);
-	if (ac == 3 && ft_strcmp(av[1], "-c") == 0 && av[2])
-	{
-		input = ft_split(av[2], ';');
-		if (input == NULL)
-			exit(EXIT_FAILURE);
-		i = 0;
-		while (input[i])
-		{
-			parse(&mini, input[i]);
-			if (mini.token && check_line(&mini, mini.token) && mini.exit == 0)
-				start(&mini);
-			i++;
-		}
-		free(input);
-		mini.exit = true;
-	}
-	else
-		if (ac != 1)
-			return (EXIT_FAILURE);
+	if (ac != 1)
+		return (EXIT_FAILURE);
 	while (mini.exit == 0)
 	{
 		ft_bzero(&g_sig, sizeof(t_sig));

@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:51 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/10 18:13:53 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 16:10:39 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	free_env(t_env *env)
 	clear_history();
 }
 
-
 void	free_all_export(t_env *export)
 {
 	t_env	*tmp;
@@ -51,7 +50,6 @@ void	free_all_export(t_env *export)
 			free(export->value);
 	}
 }
-
 
 void	free_array(char **array)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_sort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/06 23:38:57 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:22:29 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,21 @@ void	sort_env(char **tabe, int env_len)
 	}
 }
 
+static void	write_tabe(char **tabe)
+{
+	int	i;
+
+	i = 0;
+	while (tabe[i])
+	{
+		ft_putstr("declare -x ");
+		ft_putendl(tabe[i]);
+		i++;
+	}
+}
+
 void	show_env(t_env *env, t_env *export)
 {
-	int		i;
 	char	**tabe;
 	char	*str_env;
 	t_env	*tmp_export;
@@ -51,13 +63,7 @@ void	show_env(t_env *env, t_env *export)
 		exit(perror_return("", EXIT_FAILURE));
 	ft_memdel(str_env);
 	sort_env(tabe, ft_strarraylen(tabe));
-	i = 0;
-	while (tabe[i])
-	{
-		ft_putstr("declare -x ");
-		ft_putendl(tabe[i]);
-		i++;
-	}
+	write_tabe(tabe);
 	tmp_export = export;
 	while (tmp_export && tmp_export->value != NULL)
 	{
@@ -66,4 +72,30 @@ void	show_env(t_env *env, t_env *export)
 		tmp_export = tmp_export->next;
 	}
 	free_array(tabe);
+}
+
+char	*env_cpy(char *env1, t_env *env)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	while (env && env->next)
+	{
+		if (env->value)
+		{
+			j = 0;
+			while (env->value[j])
+			{
+				env1[i] = env->value[j];
+				j++;
+				i++;
+			}	
+		}
+		if (env->next->next)
+			env1[i++] = '\n';
+		env = env->next;
+	}
+	env1[i] = '\0';
+	return (env1);
 }

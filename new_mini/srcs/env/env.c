@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 19:00:44 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 17:30:01 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,15 @@ size_t	env_size(t_env *env)
 char	*env_on_str(t_env *env)
 {
 	char	*env1;
-	int		i;
-	int		j;
 
-	i = 0;
 	env1 = malloc(sizeof(char) * env_size(env) + 1);
 	if (env1 == NULL)
 		exit(perror_return("", EXIT_FAILURE));
-	while (env && env->next)
-	{
-		if (env->value)
-		{
-			j = 0;
-			while (env->value[j])
-			{
-				env1[i] = env->value[j];
-				j++;
-				i++;
-			}	
-		}
-		if (env->next->next)
-			env1[i++] = '\n';
-		env = env->next;
-	}
-	env1[i] = '\0';
+	env1 = env_cpy(env1, env);
 	return (env1);
 }
 
-int	set_env(t_mini *mini, char **env)
+void	set_env(t_mini *mini, char **env)
 {
 	t_env	*env1;
 	t_env	*env2;
@@ -79,15 +60,13 @@ int	set_env(t_mini *mini, char **env)
 		env2 = malloc(sizeof(t_env));
 		if (env2 == NULL)
 			exit(perror_return("", EXIT_FAILURE));
-		env2->value = ft_strdup(env[i]);
+		env2->value = ft_strdup(env[i++]);
 		if (env2->value == NULL)
 			exit(perror_return("", EXIT_FAILURE));
 		env2->next = NULL;
 		env1->next = env2;
 		env1 = env2;
-		i++;
 	}
-	return (0);
 }
 
 t_env	*set_export(char *value)

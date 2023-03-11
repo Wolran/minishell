@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 18:36:09 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:45:54 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,9 +186,8 @@ char			*env_cpy(char *env1, t_env *env);
 ** FREE
 */
 void			free_env(t_env *env);
-void			free_all_export(t_env *export);
 void			free_array(char **array);
-void			free_token(t_token *token);
+void			*free_token(t_token *token);
 void			free_export(t_mini *mini, t_env *export);
 int				last_export(t_mini *mini, t_env *export);
 

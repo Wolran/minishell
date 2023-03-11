@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:51 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 18:33:41 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:45:44 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,6 @@ void	free_env(t_env *env)
 	clear_history();
 }
 
-void	free_all_export(t_env *export)
-{
-	t_env	*tmp;
-
-	while (export && export->next)
-	{
-		tmp = export;
-		export = export->next;
-		if (tmp->value)
-			free(tmp->value);
-		free(tmp);
-	}
-	if (export)
-	{
-		if (export->value)
-			free(export->value);
-	}
-}
-
 void	free_array(char **array)
 {
 	int		i;
@@ -60,19 +41,16 @@ void	free_array(char **array)
 		ft_memdel(array);
 }
 
-void	free_token(t_token *token)
+void	*free_token(t_token *token)
 {
-	while (token && token->next)
+	t_token	*temp;
+
+	while (token)
 	{
-		if (token->str)
-			free(token->str);
+		temp = token;
 		token = token->next;
-		free(token->prev);
+		free(temp->str);
+		free(temp);
 	}
-	if (token)
-	{
-		if (token->str)
-			free(token->str);
-		free(token);
-	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 18:37:31 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:48:23 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	main(int ac, char **av, char **env)
 		parse(&mini, NULL);
 		if (mini.token && check_line(&mini, mini.token) && mini.exit == 0)
 			start(&mini);
+		mini.token = free_token(mini.token);
 	}
 	clean_minishell(&mini);
 	return (mini.ret);

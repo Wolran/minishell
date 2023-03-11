@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:37:51 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 16:10:39 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 18:33:41 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,12 @@ void	free_env(t_env *env)
 {
 	t_env	*temp;
 
-	while (env && env->next)
+	while (env)
 	{
 		temp = env;
 		env = env->next;
-		if (temp->value)
-			free(temp->value);
+		free(temp->value);
 		free(temp);
-	}
-	if (env)
-	{
-		if (env->value)
-			free(env->value);
 	}
 	clear_history();
 }

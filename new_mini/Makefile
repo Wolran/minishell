@@ -63,7 +63,6 @@ SRC_FILE=	\
 			\
 			parsing/check.c \
 			parsing/get_arg.c \
-			parsing/here_doc.c \
 			parsing/parse_2.c \
 			parsing/parse_3.c \
 			parsing/parse_4.c \
@@ -71,6 +70,7 @@ SRC_FILE=	\
 			parsing/token_2.c \
 			parsing/token.c \
 			parsing/expansion.c \
+			parsing/here_doc.c \
 			\
 			utils/fd.c \
 			utils/free.c \

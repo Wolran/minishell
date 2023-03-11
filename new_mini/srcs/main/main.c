@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 18:48:23 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:33:15 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,15 @@ int	main(int ac, char **av, char **env)
 {
 	t_mini		mini;
 
-	(void)ac;
+	if (isatty(STDIN) == 0 || ac != 1)
+		return (EXIT_FAILURE);
 	(void)av;
-	if (env[0] == NULL)
-		return (0);
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.in = dup(STDIN);
 	mini.out = dup(STDOUT);
 	reset_fd(&mini);
 	set_env(&mini, env);
 	mini.export = set_export(NULL);
-	if (ac != 1)
-		return (EXIT_FAILURE);
 	while (mini.exit == 0)
 	{
 		ft_bzero(&g_sig, sizeof(t_sig));

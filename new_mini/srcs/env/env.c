@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 17:30:01 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 19:46:44 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,9 @@ void	set_env(t_mini *mini, char **env)
 	t_env	*env2;
 	int		i;
 
-	env1 = malloc(sizeof(t_env));
-	if (env1 == NULL)
-		exit(perror_return("", EXIT_FAILURE));
-	env1->value = ft_strdup(env[0]);
-	if (env1->value == NULL)
-		exit(perror_return("", EXIT_FAILURE));
+	if (*env == NULL)
+		return ;
+	env1 = malloc_env(env);
 	env1->next = NULL;
 	mini->env = env1;
 	i = 1;

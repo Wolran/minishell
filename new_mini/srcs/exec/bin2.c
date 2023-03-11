@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 16:47:12 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/11 19:37:37 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ int	error_message(char *path)
 	folder = opendir(path);
 	ft_putstr_fd("minishell", STDERR);
 	if (ft_strchr(path, '/') == NULL)
-		ft_putendl_fd(": command not found", STDERR);
+		ft_putstr_fd(": command not found", STDERR);
 	else if (fd == -1 && folder == NULL)
-		ft_putendl_fd(": No such file or directory", STDERR);
+		ft_putstr_fd(": No such file or directory", STDERR);
 	else if (fd == -1 && folder != NULL)
-		ft_putendl_fd(": is a directory", STDERR);
+		ft_putstr_fd(": is a directory", STDERR);
 	else if (fd != -1 && folder == NULL)
-		ft_putendl_fd(": Permission denied", STDERR);
-	ft_putstr_fd(path, STDERR);
+		ft_putstr_fd(": Permission denied", STDERR);
+	ft_putstr_fd(" : ", STDERR);
+	ft_putendl_fd(path, STDERR);
 	if (ft_strchr(path, '/') == NULL || (fd == -1 && folder == NULL))
 		ret = 127;
 	else

@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 18:45:54 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:47:41 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ int				ft_strisnum(char *str);
 /*
 ** ENV & EXPORT
 */
+t_env			*malloc_env(char **env);
 int				export_add(char *value, t_env *export);
 int				check_double(char *arg, t_env *export);
 void			set_env(t_mini *mini, char **env);

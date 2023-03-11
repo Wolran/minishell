@@ -16,7 +16,7 @@
 
 NAME= minishell
 
-CC= clang
+# CC= clang
 CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
 LDFLAGS= -lreadline
 DEPFLAGS= -MT $@ -MMD -MP -MF $(DEP_DIR)$*.d
@@ -50,6 +50,7 @@ SRC_FILE=	\
 			builtins/unset2.c \
 			\
 			env/env.c \
+			env/env2.c \
 			env/env_sort.c \
 			env/get_env.c \
 			\

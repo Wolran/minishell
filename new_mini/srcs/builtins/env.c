@@ -3,17 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/09 17:34:04 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/03/12 01:25:27 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	mini_env(t_env *env)
+int	count_args(char **cmd)
 {
+	int i;
+
+	i = 0;
+	while (cmd[i])
+		i++;
+	return (i);
+}
+
+int	mini_env(t_env *env, char **cmd)
+{
+	if (count_args(cmd) != 1)
+		return (1);
 	while (env)
 	{
 		ft_putendl_fd(env->value, STDOUT);

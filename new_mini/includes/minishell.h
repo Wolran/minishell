@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:54:06 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 19:47:41 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:26:02 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,9 +216,9 @@ int				env_add(char *value, t_env *env);
 char			*name_env(char *dest, char *src);
 int				in_env(char *args, t_env *env);
 int				mini_exit(t_mini *mini, char **cmd);
-int				mini_pwd(t_env *env);
+int				mini_pwd(void);
 int				mini_echo(char **args);
-int				mini_env(t_env *env);
+int				mini_env(t_env *env, char **cmd);
 int				mini_cd(char **args, t_env *env);
 void			mini_export(char **args, t_mini *mini, t_env *env, \
 				t_env *export);

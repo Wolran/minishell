@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 19:17:16 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:26:35 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	mini_cd(char **args, t_env *env)
 	else if (ft_strcmp(args[1], "-") == 0)
 	{
 		ret = path(1, env);
-		mini_pwd(env);
+		mini_pwd();
 	}
 	else
 	{

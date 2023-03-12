@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 01:36:55 by vmuller           #+#    #+#             */
-/*   Updated: 2023/03/11 15:48:16 by troberts         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:26:10 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exec_builtins(t_mini *mini, char **cmd, t_token *token)
 	if (ft_strcmp("cd", cmd[0]) == 0)
 		ret = mini_cd(cmd, mini->env);
 	if (ft_strcmp("pwd", cmd[0]) == 0)
-		ret = mini_pwd(mini->env);
+		ret = mini_pwd();
 	if (ft_strcmp("export", cmd[0]) == 0 && its_pipe(token) == 0)
 	{
 		mini_export(cmd, mini, mini->env, mini->export);
@@ -48,6 +48,6 @@ int	exec_builtins(t_mini *mini, char **cmd, t_token *token)
 	if (ft_strcmp("unset", cmd[0]) == 0 && its_pipe(token) == 0)
 		ret = mini_unset(cmd, mini);
 	if (ft_strcmp("env", cmd[0]) == 0)
-		ret = mini_env(mini->env);
+		ret = mini_env(mini->env, cmd);
 	return (ret);
 }

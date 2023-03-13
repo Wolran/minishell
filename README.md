@@ -1,4 +1,4 @@
-# minishell
+# minishell 100%
 
 #### Duo:
 * Thomas Robertson ->	[Git](https://github.com/ThomasRobertson) / [42.intra](https://profile.intra.42.fr/users/troberts)

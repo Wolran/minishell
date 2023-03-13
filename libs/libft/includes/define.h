@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 21:44:12 by troberts          #+#    #+#             */
-/*   Updated: 2023/03/05 11:59:21 by vmuller          ###   ########.fr       */
+/*   Created: 2022/10/04 20:14:06 by troberts          #+#    #+#             */
+/*   Updated: 2022/10/04 20:16:10 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef DEFINE_H
+# define DEFINE_H
 
-int	ft_isprint(int c)
-{
-	if (c >= 32 && c < 127)
-		return (1);
-	else
-		return (0);
-}
+# ifndef GNL_BUFFER_SIZE
+#  define GNL_BUFFER_SIZE 4096
+# endif
+
+# ifndef RETURN_SUCCESS
+#  define RETURN_SUCCESS 1
+# endif
+
+# ifndef RETURN_FAILURE
+#  define RETURN_FAILURE 0
+# endif
+
+#endif

@@ -22,7 +22,7 @@ AR= ar
 ARARCH= -cr
 ARINDEX= -s
 
-INCLUDES= include
+INCLUDES= includes
 OBJ_DIR= obj
 SRC_DIR= src
 

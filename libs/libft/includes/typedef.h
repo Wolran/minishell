@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel_bonus.c                                  :+:      :+:    :+:   */
+/*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 17:53:15 by troberts          #+#    #+#             */
-/*   Updated: 2022/04/21 22:50:35 by troberts         ###   ########.fr       */
+/*   Created: 2022/10/04 20:11:09 by troberts          #+#    #+#             */
+/*   Updated: 2022/10/04 20:12:14 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef TYPEDEF_H
+# define TYPEDEF_H
 
-void	*ft_memdel(void *ptr)
+# ifndef T_LIST
+#  define T_LIST
+
+typedef struct s_list
 {
-	if (ptr)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-	return (NULL);
-}
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
+# endif
+
+# ifndef T_BOOL
+#  define T_BOOL
+
+typedef enum e_bool
+{
+	false = 0,
+	true = 1
+}	t_bool;
+
+# endif
+#endif

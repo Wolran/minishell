@@ -25,11 +25,11 @@ INCLUDE = -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(LIBFT_INC)
 
 LIBFT_DIR= libs/libft
 LIBFT_LIB= $(LIBFT_DIR)/libft.a
-LIBFT_INC= $(LIBFT_DIR)/include
+LIBFT_INC= $(LIBFT_DIR)/includes
 
 INCLUDE_DIR= includes
 OBJ_DIR= obj/
-SRC_DIR= sources/
+SRC_DIR= srcs/
 DEP_DIR= dep/
 
 # **************************************************************************** #
@@ -37,26 +37,26 @@ DEP_DIR= dep/
 # **************************************************************************** #
 
 SRC_FILE=	\
-			builtins/run_builtins.c \
-			builtins/run_echo.c \
-			builtins/run_cd.c \
-			builtins/run_pwd.c \
-			builtins/run_export.c \
-			builtins/run_unset.c \
-			builtins/run_env.c \
-			builtins/run_exit.c \
-			\
-			core/build_env.c \
-			core/clean_token.c \
+			builtins/cd.c \
+			builtins/cd_2.c \
+			builtins/echo.c \
+			builtins/env.c \
+			builtins/exit.c \
+			builtins/export.c \
+			builtins/export2.c \
+			builtins/export3.c \
+			builtins/pwd.c \
+			builtins/unset.c \
+			builtins/unset2.c \
 			\
 			env/env.c \
+			env/env_sort.c \
 			env/get_env.c \
 			\
-			exec/assign_fd.c \
-			exec/create_token_exe.c \
-			exec/execute_cmd.c \
-			exec/get_path_cmd.c \
-			exec/pre_process.c \
+			exec/bin.c \
+			exec/bin2.c \
+			exec/builtins.c \
+			exec/exec.c \
 			\
 			main/main.c \
 			main/signal.c \
@@ -69,14 +69,14 @@ SRC_FILE=	\
 			parsing/parse.c \
 			parsing/token_2.c \
 			parsing/token.c \
-			parsing/expand.c \
+			parsing/expansion.c \
+			parsing/here_doc.c \
 			\
+			utils/fd.c \
 			utils/free.c \
 			utils/node.c \
 			utils/type.c \
-			\
-			fake_parser.c \
-			utils.c
+			utils/utils.c \
 
 #			main.c \
 
